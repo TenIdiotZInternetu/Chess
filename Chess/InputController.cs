@@ -19,20 +19,20 @@ public static class InputController
         {
             string input1 = Console.ReadLine();
             if (input1 == "") throw new ArgumentNullException();
-            if (!IsInputValid(input1)) throw new ArgumentException();
+            if (!IsInputRightFormat(input1)) throw new ArgumentException();
 
             int startingFile = (int)Enum.Parse(typeof(Columns), input1[0].ToString().ToUpper());
             int startingRank = (int)Char.GetNumericValue(input1[1]) - 1;
-            
-            
+
             Piece pickedPiece = Board.GetPiece(startingFile, startingRank);
-            if (pickedPiece?.Color != player.Color) throw new UnauthorizedAccessException();
+            if (pickedPiece?.Color != player.Color)
+                throw new UnauthorizedAccessException();
 
             Board.PickPiece(pickedPiece);
 
             string input2 = ReadSecondaryInput();
             if (input2 == "") throw new ArgumentNullException();
-            if (!IsInputValid(input2)) throw new ArgumentException();
+            if (!IsInputRightFormat(input2)) throw new ArgumentException();
 
             // TODO: Distinguish between types of inputs
 
@@ -63,6 +63,10 @@ public static class InputController
         {
             CommentController.WriteComment("Choose piece of your color");
         }
+        catch (IndexOutOfRangeException e)
+        {
+            CommentController.WriteComment("Choose rank between 1 and 8");
+        }
 
         BoardRenderer.RenderBoard();
         return false;
@@ -86,12 +90,12 @@ public static class InputController
         Console.Write("                    ");
     }
 
-    private static bool IsInputValid(string input)
+    private static bool IsInputRightFormat(string input)
     {
         if (input.Length == 2)
         {
             return Enum.IsDefined(typeof(Columns), input[0].ToString()) &&
-            Char.IsNumber(input[1]);
+                   Char.IsNumber(input[1]);
         }
 
         return false;
