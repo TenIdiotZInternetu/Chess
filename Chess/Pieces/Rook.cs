@@ -5,7 +5,7 @@ namespace Chess;
 public class Rook : Piece
 {
     protected override string Symbol => "R";
-    private bool _moved = false;
+    public bool Moved = false;
     protected override Vector2[] ShiftVectors => new[] 
     {
         new Vector2(0, 1), new Vector2(0, -1),
@@ -17,7 +17,7 @@ public class Rook : Piece
 
     public override void Move(Vector2 position)
     {
-        _moved = true;
+        Moved = true;
         base.Move(position);
     }
 }

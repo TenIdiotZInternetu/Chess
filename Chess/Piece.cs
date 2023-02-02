@@ -46,7 +46,14 @@ public abstract class Piece
     {
         Board.RemovePiece(Position);
         Position = destination;
-        Owner.ControlledPieces.Remove(this);
+        
+        Piece capturedPiece = Board.GetPiece(destination);
+        
+        if (capturedPiece != null)
+        {
+            Player.Opponent.ControlledPieces.Remove(capturedPiece);
+        }
+        
         Board.PutPiece(this);
     }
 }
