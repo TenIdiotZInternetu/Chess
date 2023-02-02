@@ -5,14 +5,19 @@ namespace Chess;
 public class Rook : Piece
 {
     protected override string Symbol => "R";
+    private bool _moved = false;
     protected override Vector2[] ShiftVectors => new[] 
     {
         new Vector2(0, 1), new Vector2(0, -1),
         new Vector2(1, 0), new Vector2(-1, 0),
     };
     
-    private bool _moved = true;
-    
     public Rook(ConsoleColor color, int xPosition, int yPosition) 
         : base(color, xPosition, yPosition) {}
+
+    public override void Move(Vector2 position)
+    {
+        _moved = true;
+        base.Move(position);
+    }
 }

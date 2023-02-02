@@ -82,7 +82,7 @@ public static class Board
             new Bishop(color, 2, rank);
             new Bishop(color, 5, rank);
             new Queen(color, 3, rank);
-            // new King(color, 4, rank);
+            new King(color, 4, rank);
         }
     }
 
