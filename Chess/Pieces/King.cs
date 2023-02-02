@@ -7,8 +7,12 @@ public class King : Piece
 {
     protected override string Symbol => Strings.ChrW(177).ToString();
     private bool _moved = false;
-    public King(Player owner, int xPosition, int yPosition) 
-        : base(owner, xPosition, yPosition) {}
+
+    public King(Player owner, int xPosition, int yPosition)
+        : base(owner, xPosition, yPosition)
+    {
+        owner.King = this;
+    }
 
     public override void FindLegalMoves()
     {

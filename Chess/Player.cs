@@ -2,13 +2,18 @@ namespace Chess;
 
 public class Player
 {
-    public static Player WhitePlayer = new Player(ConsoleColor.White);
-    public static Player BlackPlayer = new Player(ConsoleColor.Black);
+    public static readonly Player WhitePlayer = new Player(ConsoleColor.White);
+    public static readonly Player BlackPlayer = new Player(ConsoleColor.Black);
+    
+    public static Player CurrentPlayer = WhitePlayer;
+    public static Player Opponent => (CurrentPlayer == WhitePlayer) ? BlackPlayer : WhitePlayer;
     
     public string Name;
-    public ConsoleColor Color;
-    public ConsoleColor PrintColor;
+    public readonly ConsoleColor Color;
+    private readonly ConsoleColor _printColor;
+    
     public List<Piece> ControlledPieces = new List<Piece>();
+    public King King;
     
     public Player(ConsoleColor color)
     {
@@ -17,18 +22,18 @@ public class Player
         if (color == ConsoleColor.Black)
         {
             Name = "Black";
-            PrintColor = ConsoleColor.DarkGray;
+            _printColor = ConsoleColor.DarkGray;
         }
         else
         {
             Name = "White";
-            PrintColor = ConsoleColor.DarkYellow;
+            _printColor = ConsoleColor.DarkYellow;
         }
     }
     
     public void PrintName()
     {
-        Console.ForegroundColor = PrintColor;
+        Console.ForegroundColor = _printColor;
         Console.Write(Color);
         Console.ForegroundColor = ConsoleColor.Gray;
     }

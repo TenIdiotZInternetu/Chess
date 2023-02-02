@@ -15,19 +15,28 @@ int turn = 0;
 
 for (int i = 0; running; i++)
 {
-    Player currentPlayer;
     
     if (i % 2 == 0)
     {
-        currentPlayer = Player.WhitePlayer;
+        Player.CurrentPlayer = Player.WhitePlayer;
         turn++;
     }
-    else currentPlayer = Player.BlackPlayer;
-    
+    else
+    {
+        Player.CurrentPlayer = Player.BlackPlayer;
+    }
+
     CommentController.WriteTurnNumber(turn);
-    CommentController.WritePlayerOnMove(currentPlayer);
+    CommentController.WritePlayerOnMove(Player.CurrentPlayer);
+
+    foreach (Piece piece in Player.Opponent.ControlledPieces)
+    {
+        piece.FindLegalMoves();
+    }
     
-    while(!InputController.ReadInputAndSuccess(currentPlayer)) {}
+    Player.CurrentPlayer.King.FindLegalMoves();
+    
+    while(!InputController.ReadInputAndSuccess(Player.CurrentPlayer)) {}
     
     CommentController.ResetComments();
 }

@@ -18,6 +18,7 @@ public abstract class Piece
         Color = owner.Color;
         Position = new Vector2(xPosition, yPosition);
         Board.PutPiece(this);
+        Owner.ControlledPieces.Add(this);
     }
 
     public override string ToString() => Symbol;
