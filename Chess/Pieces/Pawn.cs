@@ -9,8 +9,8 @@ public class Pawn : Piece
     private Vector2 _yDirection;
     public bool CanBeEnPassant = false;
 
-    public Pawn(ConsoleColor color, int xPosition, int yPosition)
-        : base(color, xPosition, yPosition)
+    public Pawn(Player owner, int xPosition, int yPosition)
+        : base(owner, xPosition, yPosition)
     {
         _yDirection = (Color == ConsoleColor.Black) ? 
             new Vector2(0, -1) :

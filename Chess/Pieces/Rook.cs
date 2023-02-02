@@ -12,8 +12,8 @@ public class Rook : Piece
         new Vector2(1, 0), new Vector2(-1, 0),
     };
     
-    public Rook(ConsoleColor color, int xPosition, int yPosition) 
-        : base(color, xPosition, yPosition) {}
+    public Rook(Player owner, int xPosition, int yPosition) 
+        : base(owner, xPosition, yPosition) {}
 
     public override void Move(Vector2 position)
     {

@@ -6,8 +6,8 @@ public class Knight : Piece
 {
     protected override string Symbol => "K";
     //cringe one
-    public Knight(ConsoleColor color, int xPosition, int yPosition) 
-        : base(color, xPosition, yPosition) {}
+    public Knight(Player owner, int xPosition, int yPosition) 
+        : base(owner, xPosition, yPosition) {}
     
     public override void FindLegalMoves()
     {

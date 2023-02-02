@@ -12,7 +12,7 @@ public class Bishop : Piece
         new Vector2(1, -1), new Vector2(-1, 1)
     };
 
-    public Bishop(ConsoleColor color, int xPosition, int yPosition) 
-        : base(color, xPosition, yPosition) {}
+    public Bishop(Player owner, int xPosition, int yPosition) 
+        : base(owner, xPosition, yPosition) {}
     
 }

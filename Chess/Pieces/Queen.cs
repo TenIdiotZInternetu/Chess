@@ -12,6 +12,6 @@ public class Queen : Piece
         new Vector2(1, 1), new Vector2(-1, -1),
         new Vector2(1, -1), new Vector2(-1, 1)
     };
-    public Queen(ConsoleColor color, int xPosition, int yPosition) 
-        : base(color, xPosition, yPosition) {}
+    public Queen(Player owner, int xPosition, int yPosition) 
+        : base(owner, xPosition, yPosition) {}
 }

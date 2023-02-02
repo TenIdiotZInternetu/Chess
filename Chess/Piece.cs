@@ -4,6 +4,7 @@ namespace Chess;
 
 public abstract class Piece
 {
+    public readonly Player Owner;
     public readonly ConsoleColor Color;
     protected abstract string Symbol { get; }
     public List<Vector2> LegalMoves;
@@ -11,9 +12,10 @@ public abstract class Piece
 
     protected virtual Vector2[] ShiftVectors => Array.Empty<Vector2>();
 
-    protected Piece(ConsoleColor color, int xPosition, int yPosition)
+    protected Piece(Player owner, int xPosition, int yPosition)
     {
-        Color = color;
+        Owner = owner;
+        Color = owner.Color;
         Position = new Vector2(xPosition, yPosition);
         Board.PutPiece(this);
     }
@@ -43,6 +45,7 @@ public abstract class Piece
     {
         Board.RemovePiece(Position);
         Position = destination;
+        Owner.ControlledPieces.Remove(this);
         Board.PutPiece(this);
     }
 }

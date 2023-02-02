@@ -13,18 +13,16 @@ BoardRenderer.RenderBoard();
 bool running = true;
 int turn = 0;
 
-Player blackPlayer = new Player(ConsoleColor.Black);
-Player whitePlayer = new Player(ConsoleColor.White);
-
 for (int i = 0; running; i++)
 {
     Player currentPlayer;
+    
     if (i % 2 == 0)
     {
-        currentPlayer = whitePlayer;
+        currentPlayer = Player.WhitePlayer;
         turn++;
     }
-    else currentPlayer = blackPlayer;
+    else currentPlayer = Player.BlackPlayer;
     
     CommentController.WriteTurnNumber(turn);
     CommentController.WritePlayerOnMove(currentPlayer);

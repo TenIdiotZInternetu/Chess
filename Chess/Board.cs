@@ -64,25 +64,26 @@ public static class Board
     public static void SetDefaultPiecePositions()
     {
         int rank;
+        Player[] players = new[] { Player.BlackPlayer, Player.WhitePlayer };
         
-        foreach (ConsoleColor color in new[] { ConsoleColor.Black, ConsoleColor.White })
+        foreach (Player player in players)
         {
             for (byte file = 0; file < 8; file++)
             {
-                rank = (color == ConsoleColor.Black) ? 6 : 1;
-                new Pawn(color, file, rank);
+                rank = (player == Player.BlackPlayer) ? 6 : 1;
+                new Pawn(player, file, rank);
             }
             
-            rank = (color == ConsoleColor.Black) ? 7 : 0;
+            rank = (player == Player.BlackPlayer) ? 7 : 0;
 
-            new Rook(color, 0, rank);
-            new Rook(color, 7, rank);
-            new Knight(color, 1, rank);
-            new Knight(color, 6, rank);
-            new Bishop(color, 2, rank);
-            new Bishop(color, 5, rank);
-            new Queen(color, 3, rank);
-            new King(color, 4, rank);
+            new Rook(player, 0, rank);
+            new Rook(player, 7, rank);
+            new Knight(player, 1, rank);
+            new Knight(player, 6, rank);
+            new Bishop(player, 2, rank);
+            new Bishop(player, 5, rank);
+            new Queen(player, 3, rank);
+            new King(player, 4, rank);
         }
     }
 
