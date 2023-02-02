@@ -57,4 +57,15 @@ public class Pawn : Piece
                target is Pawn &&
                (target as Pawn).CanBeEnPassant;
     }
+    
+    public override void Move(Vector2 destination)
+    {
+        _moved = true;
+        CanBeEnPassant = false;
+        
+        if (Math.Abs(destination.Y - Position.Y) == 2)
+            CanBeEnPassant = true;
+        
+        base.Move(destination);
+    }
 }

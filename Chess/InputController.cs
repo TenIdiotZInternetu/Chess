@@ -49,23 +49,23 @@ public static class InputController
         }
         catch (ArgumentNullException e)
         {
-            CommentController.WriteComment("Choose your Piece");
+            CommentController.WriteWarning("Choose your Piece");
         }
         catch (ArgumentOutOfRangeException e)
         {
-            CommentController.WriteComment("Choose one of the legal moves");
+            CommentController.WriteWarning("Choose one of the\nlegal moves");
         }
         catch (ArgumentException e)
         {
-            CommentController.WriteComment("Enter square position \n in format [file][rank]");
+            CommentController.WriteWarning("Enter square position\nin format [file][rank]");
         }
         catch (UnauthorizedAccessException e)
         {
-            CommentController.WriteComment("Choose piece of your color");
+            CommentController.WriteWarning("Choose piece of your\ncolor");
         }
         catch (IndexOutOfRangeException e)
         {
-            CommentController.WriteComment("Choose rank between 1 and 8");
+            CommentController.WriteWarning("Choose rank between\n1 and 8");
         }
 
         BoardRenderer.RenderBoard();
@@ -95,7 +95,7 @@ public static class InputController
         if (input.Length == 2)
         {
             return Enum.IsDefined(typeof(Columns), input[0].ToString()) &&
-                   Char.IsNumber(input[1]);
+                   char.IsNumber(input[1]);
         }
 
         return false;

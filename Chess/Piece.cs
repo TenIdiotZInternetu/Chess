@@ -39,7 +39,7 @@ public abstract class Piece
         }
     }
 
-    public void Move(Vector2 destination)
+    public virtual void Move(Vector2 destination)
     {
         Board.RemovePiece(Position);
         Position = destination;

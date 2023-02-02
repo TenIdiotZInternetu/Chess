@@ -26,6 +26,6 @@ public class Player
     {
         Console.ForegroundColor = PrintColor;
         Console.Write(Color);
-        Console.ForegroundColor = ConsoleColor.White;
+        Console.ForegroundColor = ConsoleColor.Gray;
     }
 }
