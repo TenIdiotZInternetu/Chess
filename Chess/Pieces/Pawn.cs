@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Transactions;
 
 namespace Chess;
 
@@ -71,7 +72,45 @@ public class Pawn : Piece
         
         if (enPassant)
             Board.RemovePiece(destination - _yDirection);
-        
+
         base.Move(destination);
+        
+        bool promotion = (Owner == Player.BlackPlayer && destination.Y == 0) ||
+                         (Owner == Player.WhitePlayer && destination.Y == 7);
+        
+        if (promotion)
+            Promote();
+    }
+
+    private void Promote()
+    {
+        CommentController.WritePromotionComment();
+        
+        string pieceToPromoteTo = "";
+
+        while (pieceToPromoteTo == "")
+        {
+            pieceToPromoteTo = InputController.AskForPromotion();
+        }
+        
+        int x = (int) Position.X;
+        int y = (int) Position.Y;
+
+        switch (pieceToPromoteTo)
+        {
+            case "Q":
+                Board.PutPiece(new Queen(Owner, x, y));
+                break;
+            case "R":
+                Board.PutPiece(new Rook(Owner, x, y));
+                break;
+            case "B":
+                Board.PutPiece(new Bishop(Owner, x, y));
+                break;
+            case "N":
+                Board.PutPiece(new Knight(Owner, x, y));
+                break;
+        }
+        
     }
 }

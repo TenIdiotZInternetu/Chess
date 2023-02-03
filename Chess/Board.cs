@@ -21,7 +21,15 @@ public static class Board
     
     public static void PutPiece(Piece piece)
     {
-        Pieces[(int)piece.Position.X, (int)piece.Position.Y] = piece;
+        int x = (int)piece.Position.X;
+        int y = (int)piece.Position.Y;
+        
+        Piece capturedPiece = GetPiece(x, y);
+        
+        if (capturedPiece != null)
+            capturedPiece.Owner.ControlledPieces.Remove(capturedPiece);
+        
+        Pieces[x, y] = piece;
         BoardRenderer.RenderBoard();
     }
 
@@ -118,6 +126,14 @@ public static class Board
             return false;
 
         Piece searchedPiece = GetPiece(position);
-        return searchedPiece.Color != attacker.Color;
+        if (searchedPiece.Color == attacker.Color)
+            return false;
+        
+        if (searchedPiece == Player.Opponent.King)
+        {
+            Player.Opponent.IsInCheck = true;
+        }
+
+        return true;
     }
 }

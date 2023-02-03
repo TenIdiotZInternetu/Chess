@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Xml;
 
 namespace Chess;
 
@@ -10,10 +11,6 @@ public static class InputController
     public static bool ReadInputAndSuccess(Player player)
     {
         ResetInput();
-        
-        Console.SetCursorPosition(
-            InputCursor.x,
-            InputCursor.y);
 
         try
         {
@@ -88,6 +85,10 @@ public static class InputController
             InputCursor.y);
         
         Console.Write("                    ");
+        
+        Console.SetCursorPosition(
+            InputCursor.x,
+            InputCursor.y);
     }
 
     private static bool IsInputRightFormat(string input)
@@ -99,5 +100,22 @@ public static class InputController
         }
 
         return false;
+    }
+
+    public static string AskForPromotion()
+    {
+        
+        ResetInput();
+        string input = Console.ReadLine().ToUpper();
+
+        string[] OPTIONS = { "Q", "K", "B", "R" };
+
+        if (!OPTIONS.Contains(input))
+        {
+            CommentController.WriteWarning("Choose one of the following\n(Q, K, B, R)");
+            return "";
+        }
+
+        return input;
     }
 }

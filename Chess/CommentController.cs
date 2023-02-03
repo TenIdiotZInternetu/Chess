@@ -35,6 +35,18 @@ public static class CommentController
         text = AddPadding(text);
         Console.Write(text);
     }
+
+    public static void WritePromotionComment()
+    {
+        ResetComments();
+        Console.SetCursorPosition(
+            0,
+            PlayerOnMoveCursor.y);
+
+        string text = "Choose piece to\npromote to\n(K, Q, R, B)";
+        string options = AddPadding(text);
+        Console.Write(options);
+    }
     
     public static void ResetWarning()
     {
