@@ -30,8 +30,8 @@ public class Pawn : Piece
         if (!_moved && Board.IsSquareFree(twoInFront))
             LegalMoves.Add(twoInFront);
 
-        Vector2 diagonalLeft = Position + _yDirection + Vector2.UnitX;
-        Vector2 diagonalRight = Position + _yDirection - Vector2.UnitX;
+        Vector2 diagonalLeft = Position + _yDirection - Vector2.UnitX;
+        Vector2 diagonalRight = Position + _yDirection + Vector2.UnitX;
         
         if (Board.IsPieceOppositeColor(this, diagonalLeft)) 
             LegalMoves.Add(diagonalLeft);
@@ -65,6 +65,12 @@ public class Pawn : Piece
         
         if (Math.Abs(destination.Y - Position.Y) == 2)
             CanBeEnPassant = true;
+
+        bool enPassant = Math.Abs(destination.X - Position.X) == 1 &&
+                         Board.IsSquareFree(destination);
+        
+        if (enPassant)
+            Board.RemovePiece(destination - _yDirection);
         
         base.Move(destination);
     }
