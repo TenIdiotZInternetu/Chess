@@ -37,7 +37,7 @@ public static class InputController
             // TODO: Distinguish between types of inputs
 
             Vector2 moveDestination = new Vector2(
-                (int)Enum.Parse(typeof(Columns), input2[0].ToString()),
+                (int)Enum.Parse(typeof(Columns), input2[0].ToString().ToUpper()),
                 (int)Char.GetNumericValue(input2[1]) - 1
             );
 
@@ -94,7 +94,7 @@ public static class InputController
     {
         if (input.Length == 2)
         {
-            return Enum.IsDefined(typeof(Columns), input[0].ToString()) &&
+            return Enum.IsDefined(typeof(Columns), input[0].ToString().ToUpper()) &&
                    char.IsNumber(input[1]);
         }
 
