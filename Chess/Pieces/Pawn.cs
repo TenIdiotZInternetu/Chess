@@ -21,23 +21,20 @@ public class Pawn : Piece
     public override void FindLegalMoves()
     {
         LegalMoves = new List<Vector2>();
-
-        Vector2 inFront = Position + _yDirection;
-        Vector2 twoInFront = Position + 2 * _yDirection;
         
-        if (Board.IsSquareFree(inFront))
-            LegalMoves.Add(inFront);
-        
-        if (!_moved && Board.IsSquareFree(twoInFront))
-            LegalMoves.Add(twoInFront);
+        if (Owner.Threats.Count > 1)
+            return;
 
+        CheckForwardMove();
+        CheckForwardTwoMove();
+        
         Vector2 diagonalLeft = Position + _yDirection - Vector2.UnitX;
         Vector2 diagonalRight = Position + _yDirection + Vector2.UnitX;
-        
-        if (Board.IsPieceOppositeColor(this, diagonalLeft)) 
+
+        if (CanCapture(diagonalLeft))
             LegalMoves.Add(diagonalLeft);
         
-        if (Board.IsPieceOppositeColor(this, diagonalRight))
+        if (CanCapture(diagonalRight))
             LegalMoves.Add(diagonalRight);
         
         if (CanEnPassant(Position + Vector2.UnitX))
@@ -46,15 +43,46 @@ public class Pawn : Piece
         if (CanEnPassant(Position - Vector2.UnitX))
             LegalMoves.Add(diagonalLeft);
     }
-
-    private bool CanEnPassant(Vector2 position)
+    
+    private void CheckForwardMove()
+    {
+        Vector2 inFront = Position + _yDirection;
+        bool doesntLoseKing = !Owner.IsInCheck || BlocksCheck(inFront);
+        
+        if (Board.IsSquareFree(inFront) && doesntLoseKing)
+            LegalMoves.Add(inFront);
+    }
+    
+    private void CheckForwardTwoMove()
+    {
+        Vector2 twoInFront = Position + 2 * _yDirection;
+        bool doesntLoseKing = !Owner.IsInCheck || BlocksCheck(twoInFront);
+        bool canMoveTwo = !_moved && Board.IsSquareFree(twoInFront);
+        
+        if (canMoveTwo && doesntLoseKing)
+            LegalMoves.Add(twoInFront);
+    }
+    
+    private bool CanCapture(Vector2 position)
     {
         if (Board.IsSquareOutOfBounds(position))
             return false;
         
-        Piece target = Board.GetPiece(position);
+        bool doesntLoseKing = !Owner.IsInCheck || CapturesThreat(position);
+        
+        return Board.IsPieceOppositeColor(this, position) && doesntLoseKing;
+    }
 
-        return Board.IsPieceOppositeColor(this, position) &&
+    private bool CanEnPassant(Vector2 targetPosition)
+    {
+        if (Board.IsSquareOutOfBounds(targetPosition))
+            return false;
+        
+        Piece target = Board.GetPiece(targetPosition);
+        
+        bool doesntLoseKing = !Owner.IsInCheck || CapturesThreat(targetPosition);
+
+        return Board.IsPieceOppositeColor(this, targetPosition) &&
                target is Pawn &&
                (target as Pawn).CanBeEnPassant;
     }

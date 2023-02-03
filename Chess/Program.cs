@@ -28,10 +28,18 @@ for (int i = 0; running; i++)
 
     CommentController.WriteTurnNumber(turn);
     CommentController.WritePlayerOnMove(Player.CurrentPlayer);
+    
+    Player.CurrentPlayer.Threats.Clear();
 
     foreach (Piece piece in Player.Opponent.ControlledPieces)
     {
         piece.FindLegalMoves();
+        
+        if (piece.LegalMoves.Contains(Player.CurrentPlayer.King.Position))
+        {
+            CommentController.WriteCheck(Player.CurrentPlayer);
+            Player.CurrentPlayer.Threats.Add(piece);
+        }
     }
     
     Player.CurrentPlayer.King.FindLegalMoves();

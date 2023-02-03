@@ -128,11 +128,6 @@ public static class Board
         Piece searchedPiece = GetPiece(position);
         if (searchedPiece.Color == attacker.Color)
             return false;
-        
-        if (searchedPiece == Player.Opponent.King)
-        {
-            Player.Opponent.IsInCheck = true;
-        }
 
         return true;
     }

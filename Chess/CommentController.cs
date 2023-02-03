@@ -36,6 +36,17 @@ public static class CommentController
         Console.Write(text);
     }
 
+    public static void WriteCheck(Player player)
+    {
+        ResetComments();
+        Console.SetCursorPosition(
+            7,
+            PlayerOnMoveCursor.y);
+        
+        player.PrintName();
+        Console.Write(" is in check!");
+    }
+
     public static void WritePromotionComment()
     {
         ResetComments();

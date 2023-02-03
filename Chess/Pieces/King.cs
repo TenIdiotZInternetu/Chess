@@ -34,12 +34,15 @@ public class King : Piece
                     LegalMoves.Add(destination);
             }
         }
-        
-        if (CanCastleLeft())
-            LegalMoves.Add(Position + new Vector2(-2, 0));
-        
-        if (CanCastleRight())
-            LegalMoves.Add(Position + new Vector2(2, 0));
+
+        if (!Owner.IsInCheck)
+        {
+            if (CanCastleLeft())
+                LegalMoves.Add(Position + new Vector2(-2, 0));
+            
+            if (CanCastleRight())
+                LegalMoves.Add(Position + new Vector2(2, 0));
+        }
     }
 
     public override void Move(Vector2 position)
@@ -109,16 +112,13 @@ public class King : Piece
     private static bool RookIsPresent(Vector2 position)
     {
         Piece cornerPiece = Board.GetPiece(position);
-        
-        if (cornerPiece is not Rook)
-            return false;
 
-        Rook rook = cornerPiece as Rook;
+        if (cornerPiece is Rook rook)
+        {
+            return !rook.Moved;
+        }
 
-        if (rook.Moved)
-            return false;
-
-        return true;
+        return false;
     }
     
     private static bool IsSquareSafe(Vector2 position)

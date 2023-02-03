@@ -7,13 +7,15 @@ public class Player
     
     public static Player CurrentPlayer = WhitePlayer;
     public static Player Opponent => (CurrentPlayer == WhitePlayer) ? BlackPlayer : WhitePlayer;
-    
-    public string Name;
+
+    private string Name;
     public readonly ConsoleColor Color;
     private readonly ConsoleColor _printColor;
     
     public List<Piece> ControlledPieces = new List<Piece>();
     public King King;
+    public List<Piece> Threats = new List<Piece>();
+    public bool IsInCheck => Threats.Count > 0;
     
     public Player(ConsoleColor color)
     {
