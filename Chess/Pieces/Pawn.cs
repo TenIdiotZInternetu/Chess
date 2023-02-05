@@ -8,7 +8,12 @@ public class Pawn : Piece
     protected override string Symbol => "P";
     private bool _moved = false;
     private Vector2 _yDirection;
-    public bool CanBeEnPassant = false;
+    private bool CanBeEnPassant = false;
+    
+    public (Vector2 DiagonalLeft, Vector2 DiagonalRight) AttackedSquares => (
+        Position + _yDirection - Vector2.UnitX,
+        Position + _yDirection + Vector2.UnitX
+    );
 
     public Pawn(Player owner, int xPosition, int yPosition)
         : base(owner, xPosition, yPosition)
@@ -27,21 +32,18 @@ public class Pawn : Piece
 
         CheckForwardMove();
         CheckForwardTwoMove();
-        
-        Vector2 diagonalLeft = Position + _yDirection - Vector2.UnitX;
-        Vector2 diagonalRight = Position + _yDirection + Vector2.UnitX;
 
-        if (CanCapture(diagonalLeft))
-            LegalMoves.Add(diagonalLeft);
+        if (CanCapture(AttackedSquares.DiagonalLeft))
+            LegalMoves.Add(AttackedSquares.DiagonalLeft);
         
-        if (CanCapture(diagonalRight))
-            LegalMoves.Add(diagonalRight);
+        if (CanCapture(AttackedSquares.DiagonalRight))
+            LegalMoves.Add(AttackedSquares.DiagonalRight);
         
         if (CanEnPassant(Position + Vector2.UnitX))
-            LegalMoves.Add(diagonalRight);
+            LegalMoves.Add(AttackedSquares.DiagonalRight);
 
         if (CanEnPassant(Position - Vector2.UnitX))
-            LegalMoves.Add(diagonalLeft);
+            LegalMoves.Add(AttackedSquares.DiagonalLeft);
     }
     
     private void CheckForwardMove()

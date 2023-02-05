@@ -18,31 +18,27 @@ public class King : Piece
     {
         LegalMoves = new List<Vector2>();
         
-        for (int x = -1; x <= 1; x++)
+        foreach (Vector2 destination in GetWalkableSquares())
         {
-            for (int y = -1; y <= 1; y++)
-            {
-                if (x == 0 && y == 0)
-                    continue;
-                
-                Vector2 shiftVector = new Vector2(x, y);
-                Vector2 destination = Position + shiftVector;
-                
-                if ((Board.IsSquareFree(destination) || 
-                    Board.IsPieceOppositeColor(this, destination)) &&
-                    IsSquareSafe(destination))
-                    LegalMoves.Add(destination);
-            }
-        }
+            bool squareIsSafe = IsSquareSafe(destination);
+            bool isntBlocked = Board.IsSquareFree(destination) ||
+                               Board.IsPieceOppositeColor(this, destination);
 
-        if (!Owner.IsInCheck)
-        {
-            if (CanCastleLeft())
-                LegalMoves.Add(Position + new Vector2(-2, 0));
-            
-            if (CanCastleRight())
-                LegalMoves.Add(Position + new Vector2(2, 0));
+            if (isntBlocked && squareIsSafe)
+                LegalMoves.Add(destination);
         }
+        
+        bool cannotCastle = Owner.IsInCheck || _moved;
+
+        if (cannotCastle)
+            return;
+        
+        if (CanCastleLeft())
+            LegalMoves.Add(Position + new Vector2(-2, 0));
+        
+        if (CanCastleRight())
+            LegalMoves.Add(Position + new Vector2(2, 0));
+        
     }
 
     public override void Move(Vector2 position)
@@ -65,12 +61,26 @@ public class King : Piece
         
         base.Move(position);
     }
+    
+    IEnumerable<Vector2> GetWalkableSquares()
+    {
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                if (x == 0 && y == 0)
+                    continue;
+
+                Vector2 shiftVector = new Vector2(x, y);
+                Vector2 destination = Position + shiftVector;
+
+                yield return destination;
+            }
+        }
+    }
 
     private bool CanCastleLeft()
     {
-        if (_moved)
-            return false;
-        
         if (!RookIsPresent(Position + new Vector2(-4, 0)))
             return false;
         
@@ -91,9 +101,6 @@ public class King : Piece
     
     private bool CanCastleRight()
     {
-        if (_moved)
-            return false;
-
         if (!RookIsPresent(Position + new Vector2(3, 0)))
             return false;
 
@@ -125,10 +132,17 @@ public class King : Piece
     {
         foreach (Piece piece in Player.Opponent.ControlledPieces)
         {
-            if (piece.LegalMoves.Contains(position))
+            if (piece is Pawn pawn)
+            {
+                (Vector2 diagonalLeft, Vector2 diagonalRight) = pawn.AttackedSquares;
+                if (diagonalLeft == position || diagonalRight == position)
+                    return false;
+            }
+            
+            else if (piece.LegalMoves.Contains(position))
                 return false;
         }
-
+        
         return true;
     }
 }

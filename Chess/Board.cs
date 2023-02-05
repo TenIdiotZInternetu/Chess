@@ -126,9 +126,15 @@ public static class Board
             return false;
 
         Piece searchedPiece = GetPiece(position);
-        if (searchedPiece.Color == attacker.Color)
-            return false;
+        return searchedPiece.Color != attacker.Color;
+    }
 
-        return true;
+    public static bool IsThreatenedByPawn(Vector2 position)
+    {
+        if (IsSquareOutOfBounds(position))
+            return false;
+            
+        Piece piece = GetPiece(position);
+        return piece is Pawn pawn && pawn.Owner == Player.Opponent;
     }
 }
