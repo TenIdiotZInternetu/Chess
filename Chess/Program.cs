@@ -11,41 +11,32 @@ Board.SetDefaultPiecePositions();
 BoardRenderer.RenderBoard();
 
 bool running = true;
-int turn = 0;
+int move = 0;
 
-for (int i = 0; running; i++)
+for (int turn = 0; ; turn++)
 {
-    
-    if (i % 2 == 0)
+    if (turn % 2 == 0)
     {
         Player.CurrentPlayer = Player.WhitePlayer;
-        turn++;
+        move++;
+        GameOver.IncreaseFiftyMoveCounter();
     }
     else
-    {
         Player.CurrentPlayer = Player.BlackPlayer;
-    }
 
-    CommentController.WriteTurnNumber(turn);
+    CommentController.WriteTurnNumber(move);
     CommentController.WritePlayerOnMove(Player.CurrentPlayer);
     
     Player.CurrentPlayer.Threats.Clear();
+    Player.IdlePlayer.FindLegalMoves();
+    Player.CurrentPlayer.FindLegalMoves();
 
-    foreach (Piece piece in Player.Opponent.ControlledPieces)
-    {
-        piece.FindLegalMoves();
-        
-        if (piece.LegalMoves.Contains(Player.CurrentPlayer.King.Position))
-        {
-            CommentController.WriteCheck(Player.CurrentPlayer);
-            Player.CurrentPlayer.Threats.Add(piece);
-        }
-    }
+    if (GameOver.GameIsOver())
+        break;
     
-    Player.CurrentPlayer.King.FindLegalMoves();
+    while(!InputController.ReadInputAndConfirm(Player.CurrentPlayer)) {}
     
-    while(!InputController.ReadInputAndSuccess(Player.CurrentPlayer)) {}
-    
+    GameOver.SaveBoardState();
     CommentController.ResetComments();
 }
 

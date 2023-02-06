@@ -16,13 +16,13 @@ public static class CommentController
         Console.Write(" to move");
     }
     
-    public static void WriteTurnNumber(int turnNumber)
+    public static void WriteTurnNumber(int moveNumber)
     {
         Console.SetCursorPosition(
             TurnCursor.x,
             TurnCursor.y);
         
-        Console.Write($"Turn {turnNumber}");
+        Console.Write($"Move {moveNumber}");
     }
     
     public static void WriteWarning(string text)
@@ -55,8 +55,69 @@ public static class CommentController
             PlayerOnMoveCursor.y);
 
         string text = "Choose piece to\npromote to\n(K, Q, R, B)";
-        string options = AddPadding(text);
-        Console.Write(options);
+        Console.Write(AddPadding(text));
+    }
+
+    public static void WriteCheckmate(Player player)
+    {
+        ResetComments();
+        
+        Console.SetCursorPosition(
+            0,
+            PlayerOnMoveCursor.y);
+
+        Console.Write(AddPadding("Checkmate!"));
+        Console.Write("\t  ");
+        player.PrintName();
+        Console.Write(" wins!");
+    }
+    
+    public static void WriteStalemate()
+    {
+        ResetComments();
+        
+        Console.SetCursorPosition(
+            0,
+            PlayerOnMoveCursor.y);
+
+        string text = "Stalemate!\nNo One Wins!";
+        Console.Write(AddPadding(text));
+    }
+    
+    public static void WriteRepetition()
+    {
+        ResetComments();
+        
+        Console.SetCursorPosition(
+            0,
+            PlayerOnMoveCursor.y);
+
+        string text = "Draw by\nRepetition!";
+        Console.Write(AddPadding(text));
+    }
+    
+    public static void WriteInsufficientMaterial()
+    {
+        ResetComments();
+        
+        Console.SetCursorPosition(
+            0,
+            PlayerOnMoveCursor.y);
+
+        string text = "Draw by\nInsufficient Material!";
+        Console.Write(AddPadding(text));
+    }
+    
+    public static void Write50MoveRule()
+    {
+        ResetComments();
+        
+        Console.SetCursorPosition(
+            0,
+            PlayerOnMoveCursor.y);
+
+        string text = "Draw by\n50 Move Rule!";
+        Console.Write(AddPadding(text));
     }
     
     public static void ResetWarning()
@@ -71,8 +132,8 @@ public static class CommentController
     public static void ResetComments()
     {
         Console.SetCursorPosition(
-            TurnCursor.x,
-            TurnCursor.y);
+            PlayerOnMoveCursor.x,
+            PlayerOnMoveCursor.y);
         
         Console.Write(new string(' ', Console.WindowWidth * 5));
     }

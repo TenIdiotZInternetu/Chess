@@ -8,7 +8,7 @@ public static class InputController
     private static (int x, int y) InputCursor { get; } = (8, 15);
     private static (int x, int y) SecondaryInputCursor { get; } = (10, 15);
 
-    public static bool ReadInputAndSuccess(Player player)
+    public static bool ReadInputAndConfirm(Player player)
     {
         ResetInput();
 

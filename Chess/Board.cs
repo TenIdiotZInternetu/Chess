@@ -4,7 +4,24 @@ namespace Chess;
 
 public static class Board
 {
-    private static Piece?[,] Pieces { get; } = new Piece[8, 8];
+    private static Piece[,] Pieces { get; } = new Piece[8, 8];
+
+    public static string NormalizeBoard()
+    {
+        string board = "";
+
+        for (int y = 7; y >= 0; y--)
+        {
+            for (int x = 0; x < 8; x++)
+            {
+                Piece piece = GetPiece(x, y);
+                board += (piece == null) ? 
+                    "0" : piece.ToString();
+            }
+        }
+
+        return board;
+    }
 
     public static Piece GetPiece(int x, int y)
     {
@@ -25,9 +42,12 @@ public static class Board
         int y = (int)piece.Position.Y;
         
         Piece capturedPiece = GetPiece(x, y);
-        
+
         if (capturedPiece != null)
+        {
             capturedPiece.Owner.ControlledPieces.Remove(capturedPiece);
+            GameOver.ResetFiftyMoveCounter();
+        }
         
         Pieces[x, y] = piece;
         BoardRenderer.RenderBoard();
@@ -51,8 +71,6 @@ public static class Board
         Piece pickedPiece = GetPiece(x, y);
         BoardRenderer.RenderSquare(x, y, ConsoleColor.Red);
         
-        pickedPiece.FindLegalMoves();
-        
         foreach (var square in pickedPiece.LegalMoves)
         {
             BoardRenderer.RenderSquare(square, ConsoleColor.Green);
@@ -72,25 +90,25 @@ public static class Board
     public static void SetDefaultPiecePositions()
     {
         int rank;
-        Player[] players = new[] { Player.BlackPlayer, Player.WhitePlayer };
+        Player[] players = { Player.BlackPlayer, Player.WhitePlayer};
         
         foreach (Player player in players)
         {
             for (byte file = 0; file < 8; file++)
             {
                 rank = (player == Player.BlackPlayer) ? 6 : 1;
-                new Pawn(player, file, rank);
+                // new Pawn(player, file, rank);
             }
             
             rank = (player == Player.BlackPlayer) ? 7 : 0;
 
-            new Rook(player, 0, rank);
-            new Rook(player, 7, rank);
-            new Knight(player, 1, rank);
-            new Knight(player, 6, rank);
+            // new Rook(player, 0, rank);
+            // new Rook(player, 7, rank);
+            // new Knight(player, 1, rank);
+            // new Knight(player, 6, rank);
             new Bishop(player, 2, rank);
-            new Bishop(player, 5, rank);
-            new Queen(player, 3, rank);
+            // new Bishop(player, 5, rank);
+            // new Queen(player, 3, rank);
             new King(player, 4, rank);
         }
     }
@@ -135,6 +153,6 @@ public static class Board
             return false;
             
         Piece piece = GetPiece(position);
-        return piece is Pawn pawn && pawn.Owner == Player.Opponent;
+        return piece is Pawn pawn && pawn.Owner == Player.IdlePlayer;
     }
 }

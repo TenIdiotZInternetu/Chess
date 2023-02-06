@@ -130,7 +130,7 @@ public class King : Piece
     
     private static bool IsSquareSafe(Vector2 position)
     {
-        foreach (Piece piece in Player.Opponent.ControlledPieces)
+        foreach (Piece piece in Player.IdlePlayer.ControlledPieces)
         {
             if (piece is Pawn pawn)
             {

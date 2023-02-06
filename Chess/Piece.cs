@@ -7,7 +7,7 @@ public abstract class Piece
     public readonly Player Owner;
     public readonly ConsoleColor Color;
     protected abstract string Symbol { get; }
-    public List<Vector2> LegalMoves;
+    public List<Vector2> LegalMoves = new();
     public Vector2 Position;
     protected bool IsLongRange => ShiftVectors.Length > 0;
 

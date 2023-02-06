@@ -104,6 +104,7 @@ public class Pawn : Piece
             Board.RemovePiece(destination - _yDirection);
 
         base.Move(destination);
+        GameOver.ResetFiftyMoveCounter();
         
         bool promotion = (Owner == Player.BlackPlayer && destination.Y == 0) ||
                          (Owner == Player.WhitePlayer && destination.Y == 7);
