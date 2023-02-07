@@ -1,0 +1,5 @@
+C:\Users\TIZI\Desktop\Kodiky\CUNI\Chess\Chess\bin\Release\net6.0\publish\Chess.exe
+C:\Users\TIZI\Desktop\Kodiky\CUNI\Chess\Chess\bin\Release\net6.0\publish\Chess.dll
+C:\Users\TIZI\Desktop\Kodiky\CUNI\Chess\Chess\bin\Release\net6.0\publish\Chess.deps.json
+C:\Users\TIZI\Desktop\Kodiky\CUNI\Chess\Chess\bin\Release\net6.0\publish\Chess.runtimeconfig.json
+C:\Users\TIZI\Desktop\Kodiky\CUNI\Chess\Chess\bin\Release\net6.0\publish\Chess.pdb
