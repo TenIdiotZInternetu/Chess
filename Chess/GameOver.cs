@@ -1,10 +1,24 @@
 namespace Chess;
 
+/// <summary>
+/// Responsible for checking whether the game should end or not
+/// </summary>
 public static class GameOver
 {
+    /// <summary>
+    /// Counts the number of moves without a capture or pawn move
+    /// </summary>
     private static int _fiftyMoveCounter;
+    
+    /// <summary>
+    /// Stores how many times the current board state has been reached
+    /// </summary>
     private static Dictionary<string, int> _boardStates = new();
     
+    /// <summary>
+    /// Checks if the players reached either a draw or a win
+    /// </summary>
+    /// <returns>True if the players reached draw or win</returns>
     public static bool GameIsOver()
     {
         return CheckCheckmate() ||
@@ -13,6 +27,8 @@ public static class GameOver
                CheckInsufficientMaterial() ||
                Check50MoveRule();
     }
+    
+    // Methods below check for different ways of ending the game
     
     private static bool CheckCheckmate()
     {
@@ -88,17 +104,29 @@ public static class GameOver
         else return false;
     }
     
+    // Methods above are used to check for different ways of ending the game
+    
+    /// <summary>
+    /// Resets the counter counting towards 50 move draw.
+    /// Also resets saved board states, since they cannot be reached again.
+    /// </summary>
     public static void ResetFiftyMoveCounter()
     {
         _boardStates.Clear();
         _fiftyMoveCounter = 0;
     }
     
+    /// <summary>
+    /// Increase counter counting towards 50 move draw.
+    /// </summary>
     public static void IncreaseFiftyMoveCounter()
     {
         _fiftyMoveCounter++;
     }
 
+    /// <summary>
+    /// Save current board state. Count how many times the state has been reached.
+    /// </summary>
     public static void SaveBoardState()
     {
         string boardState = Board.NormalizeBoard();

@@ -5,6 +5,10 @@ namespace Chess;
 public class Rook : Piece
 {
     protected override string Symbol => "R";
+    
+    /// <summary>
+    /// True if the Rook has moved at least once during the game
+    /// </summary>
     public bool Moved = false;
     protected override Vector2[] ShiftVectors => new[] 
     {

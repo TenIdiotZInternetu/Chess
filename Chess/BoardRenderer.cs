@@ -2,11 +2,23 @@ using System.Numerics;
 
 namespace Chess;
 
+/// <summary>
+/// Is Responsible for printing the Board to the Console
+/// </summary>
 public static class BoardRenderer
 {
+    /// <summary>
+    /// X position of the top left corner of the Board
+    /// </summary>
     private const int BoardXPosition = 8;
+    /// <summary>
+    /// Y position of the top left corner of the Board
+    /// </summary>
     private const int BoardYPosition = 11;
     
+    /// <summary>
+    /// Prints the numbers of the ranks and the letters of the files to the Console
+    /// </summary>
     public static void RenderCoordinates()
     {
         //Render A-H
@@ -31,6 +43,9 @@ public static class BoardRenderer
         }
     }
     
+    /// <summary>
+    /// Print the whole Board with Pieces to the Console
+    /// </summary>
     public static void RenderBoard()
     {
         for (int x = 0; x < 8; x++)
@@ -50,6 +65,12 @@ public static class BoardRenderer
         Console.WriteLine("========================");
     }
 
+    /// <summary>
+    /// Render single Square with Piece occupying it to the Console
+    /// </summary>
+    /// <param name="squareX">X coordinate of the square</param>
+    /// <param name="squareY">Y coordinate of the square</param>
+    /// <param name="bgColor">Print color of the square</param>
     public static void RenderSquare(int squareX, int squareY, ConsoleColor bgColor)
     {
         Piece piece = Board.GetPiece(squareX, squareY);
@@ -68,6 +89,11 @@ public static class BoardRenderer
         Console.Write(" ");
     }
 
+    /// <summary>
+    /// Render single Square with Piece occupying it to the Console
+    /// </summary>
+    /// <param name="squarePosition">Coordinate vector with file and rank of the square</param>
+    /// <param name="bgColor">Print color of the square</param>
     public static void RenderSquare(Vector2 squarePosition, ConsoleColor bgColor)
     {
         int x = (int)squarePosition.X;

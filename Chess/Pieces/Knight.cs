@@ -13,7 +13,7 @@ public class Knight : Piece
     {
         LegalMoves = new List<Vector2>();
         
-        if (Owner.Threats.Count > 1)
+        if (Owner.IsDoubleChecked)
             return;
         
         Vector2[] shiftVectors = {
@@ -30,14 +30,10 @@ public class Knight : Piece
             
             if (Board.IsSquareOutOfBounds(searchedPosition))
                 continue;
-
-            bool doesntLoseKing = !Owner.IsInCheck ||
-                                  BlocksCheck(searchedPosition) ||
-                                  CapturesThreat(searchedPosition);
             
             if ((Board.IsPieceOppositeColor(this, searchedPosition) ||
                 Board.IsSquareFree(searchedPosition)) &&
-                doesntLoseKing)
+                KingStaysSafe(searchedPosition))
             {
                 LegalMoves.Add(searchedPosition);
             }

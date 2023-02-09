@@ -6,10 +6,25 @@ namespace Chess;
 public class Pawn : Piece
 {
     protected override string Symbol => "P";
-    private bool _moved = false;
-    private Vector2 _yDirection;
-    private bool CanBeEnPassant = false;
     
+    /// <summary>
+    /// True if the Pawn has moved at least once during the game
+    /// </summary>
+    private bool _moved = false;
+    
+    /// <summary>
+    /// Vertical direction in which the Pawn can move
+    /// </summary>
+    private readonly Vector2 _yDirection;
+    
+    /// <summary>
+    /// True if the Pawn can be captured by en passant
+    /// </summary>
+    private bool _canBeEnPassant = false;
+    
+    /// <summary>
+    /// Squares on which an opponent's Piece can be captured (once present) by this Pawn
+    /// </summary>
     public (Vector2 DiagonalLeft, Vector2 DiagonalRight) AttackedSquares => (
         Position + _yDirection - Vector2.UnitX,
         Position + _yDirection + Vector2.UnitX
@@ -27,7 +42,7 @@ public class Pawn : Piece
     {
         LegalMoves = new List<Vector2>();
         
-        if (Owner.Threats.Count > 1)
+        if (Owner.IsDoubleChecked)
             return;
 
         CheckForwardMove();
@@ -46,35 +61,52 @@ public class Pawn : Piece
             LegalMoves.Add(AttackedSquares.DiagonalLeft);
     }
     
+    /// <summary>
+    /// Checks and adds legal move if the Pawn can move 1 square forward
+    /// </summary>
     private void CheckForwardMove()
     {
         Vector2 inFront = Position + _yDirection;
-        bool doesntLoseKing = !Owner.IsInCheck || BlocksCheck(inFront);
         
-        if (Board.IsSquareFree(inFront) && doesntLoseKing)
+        if (Board.IsSquareFree(inFront) && KingStaysSafe(inFront))
             LegalMoves.Add(inFront);
     }
     
+    /// <summary>
+    /// Checks and adds legal move if the Pawn can move 2 squares forward
+    /// </summary>
     private void CheckForwardTwoMove()
     {
+        Vector2 oneInFront = Position + _yDirection;
         Vector2 twoInFront = Position + 2 * _yDirection;
-        bool doesntLoseKing = !Owner.IsInCheck || BlocksCheck(twoInFront);
-        bool canMoveTwo = !_moved && Board.IsSquareFree(twoInFront);
         
-        if (canMoveTwo && doesntLoseKing)
+        bool canMoveTwo = !_moved && 
+                          Board.IsSquareFree(oneInFront) &&
+                          Board.IsSquareFree(twoInFront);
+        
+        if (canMoveTwo && KingStaysSafe(twoInFront))
             LegalMoves.Add(twoInFront);
     }
     
+    /// <summary>
+    /// Checks if the Pawn can capture a Piece on the given square
+    /// </summary>
+    /// <param name="position">Coordinates of a square to be checked</param>
+    /// <returns>True if the Piece can be captured</returns>
     private bool CanCapture(Vector2 position)
     {
         if (Board.IsSquareOutOfBounds(position))
             return false;
         
-        bool doesntLoseKing = !Owner.IsInCheck || CapturesThreat(position);
-        
-        return Board.IsPieceOppositeColor(this, position) && doesntLoseKing;
+        return Board.IsPieceOppositeColor(this, position) &&
+               KingStaysSafe(position);
     }
 
+    /// <summary>
+    /// Checks if the Pawn can capture an opponent's Pawn by en passant
+    /// </summary>
+    /// <param name="targetPosition">Position of the opponent's Pawn</param>
+    /// <returns>True if the opponent's Pawn can be captured by en passant</returns>
     private bool CanEnPassant(Vector2 targetPosition)
     {
         if (Board.IsSquareOutOfBounds(targetPosition))
@@ -82,20 +114,18 @@ public class Pawn : Piece
         
         Piece target = Board.GetPiece(targetPosition);
         
-        bool doesntLoseKing = !Owner.IsInCheck || CapturesThreat(targetPosition);
-
         return Board.IsPieceOppositeColor(this, targetPosition) &&
-               target is Pawn &&
-               (target as Pawn).CanBeEnPassant;
+               target is Pawn { _canBeEnPassant: true } &&
+               KingStaysSafe(targetPosition);
     }
     
     public override void Move(Vector2 destination)
     {
         _moved = true;
-        CanBeEnPassant = false;
+        _canBeEnPassant = false;
         
         if (Math.Abs(destination.Y - Position.Y) == 2)
-            CanBeEnPassant = true;
+            _canBeEnPassant = true;
 
         bool enPassant = Math.Abs(destination.X - Position.X) == 1 &&
                          Board.IsSquareFree(destination);
@@ -113,6 +143,9 @@ public class Pawn : Piece
             Promote();
     }
 
+    /// <summary>
+    /// Asks the Player for a Piece to promote the Pawn to and replaces the Pawn with the new Piece
+    /// </summary>
     private void Promote()
     {
         CommentController.WritePromotionComment();
@@ -124,8 +157,8 @@ public class Pawn : Piece
             pieceToPromoteTo = InputController.AskForPromotion();
         }
         
-        int x = (int) Position.X;
-        int y = (int) Position.Y;
+        int x = (int)Position.X;
+        int y = (int)Position.Y;
 
         switch (pieceToPromoteTo)
         {

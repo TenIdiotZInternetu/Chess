@@ -1,11 +1,22 @@
+// Author Adam Balko
+// Semester project, Programming 1, Winter Semester 2022
+// Used Technologies: .NET 6.0, JetBrains Rider, Github Copilot
+
 using System.Numerics;
 using Microsoft.VisualBasic;
 
 namespace Chess;
 
+/// <summary>
+/// Represents the King piece
+/// </summary>
 public class King : Piece
 {
     protected override string Symbol => Strings.ChrW(177).ToString();
+    
+    /// <summary>
+    /// True if the King has moved at least once during the game
+    /// </summary>
     private bool _moved = false;
 
     public King(Player owner, int xPosition, int yPosition)
@@ -45,8 +56,8 @@ public class King : Piece
     {
         _moved = true;
         
-        bool castledRight = Position - position == new Vector2(-2, 0);
-        bool castledLeft = Position - position == new Vector2(2, 0);
+        bool castledRight = (Position - position) == new Vector2(-2, 0);
+        bool castledLeft = (Position - position) == new Vector2(2, 0);
         
         if (castledRight)
         {
@@ -62,7 +73,11 @@ public class King : Piece
         base.Move(position);
     }
     
-    IEnumerable<Vector2> GetWalkableSquares()
+    /// <summary>
+    /// Yields all the squares with distance 1 from the King
+    /// </summary>
+    /// <returns>Coordinates of a square with a distance 1 from the King</returns>
+    private IEnumerable<Vector2> GetWalkableSquares()
     {
         for (int x = -1; x <= 1; x++)
         {
@@ -79,6 +94,11 @@ public class King : Piece
         }
     }
 
+    /// <summary>
+    /// Checks if the King can castle to the C file.
+    /// Rook must be able to move to the D file.
+    /// </summary>
+    /// <returns>True if such maneuver is possible</returns>
     private bool CanCastleLeft()
     {
         if (!RookIsPresent(Position + new Vector2(-4, 0)))
@@ -99,6 +119,11 @@ public class King : Piece
         return true;
     }
     
+    /// <summary>
+    /// Checks if the King can castle to the G file.
+    /// Rook must be able to move to the F file.
+    /// </summary>
+    /// <returns>True if such maneuver is possible</returns>
     private bool CanCastleRight()
     {
         if (!RookIsPresent(Position + new Vector2(3, 0)))
@@ -116,6 +141,11 @@ public class King : Piece
         return true;
     }
     
+    /// <summary>
+    /// Checks if the Rook stands on the given position
+    /// </summary>
+    /// <param name="position">The Coordinates of a square the rook should stand on</param>
+    /// <returns>True if the Rook stands on the given position</returns>
     private static bool RookIsPresent(Vector2 position)
     {
         Piece cornerPiece = Board.GetPiece(position);
@@ -128,6 +158,11 @@ public class King : Piece
         return false;
     }
     
+    /// <summary>
+    /// Checks if the King cannot be captured on the given position in the next turn
+    /// </summary>
+    /// <param name="position">Coordinates of the checked square</param>
+    /// <returns>True if the King won't get captured</returns>
     private static bool IsSquareSafe(Vector2 position)
     {
         foreach (Piece piece in Player.IdlePlayer.ControlledPieces)

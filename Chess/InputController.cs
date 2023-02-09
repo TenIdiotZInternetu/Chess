@@ -3,6 +3,7 @@ using System.Xml;
 
 namespace Chess;
 
+
 public static class InputController
 {
     private static (int x, int y) InputCursor { get; } = (8, 15);
@@ -102,15 +103,19 @@ public static class InputController
         return false;
     }
 
+    /// <summary>
+    /// Awaits player to choose a piece type to promote to. "Q", "K", "B", "R" are expected inputs.
+    /// </summary>
+    /// <returns>Players input ("Q", "K", "B" or "R")</returns>
     public static string AskForPromotion()
     {
         
         ResetInput();
         string input = Console.ReadLine().ToUpper();
 
-        string[] OPTIONS = { "Q", "K", "B", "R" };
+        string[] options = { "Q", "K", "B", "R" };
 
-        if (!OPTIONS.Contains(input))
+        if (!options.Contains(input))
         {
             CommentController.WriteWarning("Choose one of the following\n(Q, K, B, R)");
             return "";
