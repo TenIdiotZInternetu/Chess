@@ -3,6 +3,9 @@ using System.Transactions;
 
 namespace Chess;
 
+/// <summary>
+/// Represents the Pawn Piece type
+/// </summary>
 public class Pawn : Piece
 {
     protected override string Symbol => "P";

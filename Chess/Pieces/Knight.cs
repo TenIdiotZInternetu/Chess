@@ -2,6 +2,9 @@ using System.Numerics;
 
 namespace Chess;
 
+/// <summary>
+/// Represents the Knight Piece type
+/// </summary>
 public class Knight : Piece
 {
     protected override string Symbol => "K";

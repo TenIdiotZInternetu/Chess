@@ -2,6 +2,9 @@ using System.Numerics;
 
 namespace Chess;
 
+/// <summary>
+/// Represents the Bishop Piece type
+/// </summary>
 public class Bishop : Piece
 {
     protected override string Symbol => "B";

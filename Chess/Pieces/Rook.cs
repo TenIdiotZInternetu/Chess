@@ -2,6 +2,9 @@ using System.Numerics;
 
 namespace Chess;
 
+/// <summary>
+/// Represents the Queen Piece type
+/// </summary>
 public class Rook : Piece
 {
     protected override string Symbol => "R";
