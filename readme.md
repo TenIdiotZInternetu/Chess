@@ -38,3 +38,12 @@ If you choose a square you cannot move to or a piece that doesn't belong to you,
   ![Moving with opponent's piece](https://cdn.discordapp.com/attachments/481431046089605120/1074039572964593764/image.png)
   
 To unpick the chosen piece, simply left the input field blank and hit enter. This will trigger a warning and your move will be reset.
+
+### Castling
+
+To castle, pick your king.  
+Then move to the G file to castle short or move to the C file to castle long.  
+  
+  For example: White will castle long by moving to C1
+  
+  ![Castling long](https://cdn.discordapp.com/attachments/481431046089605120/1074042312595869696/image.png)
