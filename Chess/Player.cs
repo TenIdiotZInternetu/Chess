@@ -100,10 +100,11 @@ public class Player
         
         foreach (Piece piece in ControlledPieces)
         {
+            piece.GetVision();
             piece.FindLegalMoves();
             LegalMoves.AddRange(piece.LegalMoves);
             
-            bool givesCheck = piece.LegalMoves.Contains(Opponent.King.Position);
+            bool givesCheck = piece.Vision.Contains(Opponent.King.Position);
 
             if (givesCheck)
             {

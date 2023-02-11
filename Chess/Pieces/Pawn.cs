@@ -41,27 +41,24 @@ public class Pawn : Piece
             new Vector2(0, 1);
     }
     
-    public override void FindLegalMoves()
+    public override void GetVision()
     {
-        LegalMoves = new List<Vector2>();
-        
-        if (Owner.IsDoubleChecked)
-            return;
+        Vision = new List<Vector2>();
 
         CheckForwardMove();
         CheckForwardTwoMove();
 
         if (CanCapture(AttackedSquares.DiagonalLeft))
-            LegalMoves.Add(AttackedSquares.DiagonalLeft);
+            Vision.Add(AttackedSquares.DiagonalLeft);
         
         if (CanCapture(AttackedSquares.DiagonalRight))
-            LegalMoves.Add(AttackedSquares.DiagonalRight);
+            Vision.Add(AttackedSquares.DiagonalRight);
         
         if (CanEnPassant(Position + Vector2.UnitX))
-            LegalMoves.Add(AttackedSquares.DiagonalRight);
+            Vision.Add(AttackedSquares.DiagonalRight);
 
         if (CanEnPassant(Position - Vector2.UnitX))
-            LegalMoves.Add(AttackedSquares.DiagonalLeft);
+            Vision.Add(AttackedSquares.DiagonalLeft);
     }
     
     /// <summary>
@@ -71,8 +68,8 @@ public class Pawn : Piece
     {
         Vector2 inFront = Position + _yDirection;
         
-        if (Board.IsSquareFree(inFront) && KingStaysSafe(inFront))
-            LegalMoves.Add(inFront);
+        if (Board.IsSquareFree(inFront))
+            Vision.Add(inFront);
     }
     
     /// <summary>
@@ -87,8 +84,8 @@ public class Pawn : Piece
                           Board.IsSquareFree(oneInFront) &&
                           Board.IsSquareFree(twoInFront);
         
-        if (canMoveTwo && KingStaysSafe(twoInFront))
-            LegalMoves.Add(twoInFront);
+        if (canMoveTwo)
+            Vision.Add(twoInFront);
     }
     
     /// <summary>
@@ -101,8 +98,7 @@ public class Pawn : Piece
         if (Board.IsSquareOutOfBounds(position))
             return false;
         
-        return Board.IsPieceOppositeColor(this, position) &&
-               KingStaysSafe(position);
+        return Board.IsPieceOppositeColor(this, position);
     }
 
     /// <summary>
@@ -118,8 +114,7 @@ public class Pawn : Piece
         Piece target = Board.GetPiece(targetPosition);
         
         return Board.IsPieceOppositeColor(this, targetPosition) &&
-               target is Pawn { _canBeEnPassant: true } &&
-               KingStaysSafe(targetPosition);
+               target is Pawn { _canBeEnPassant: true };
     }
     
     public override void Move(Vector2 destination)

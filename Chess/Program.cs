@@ -1,4 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
+// Author Adam Balko
+// Semester project, Programming 1, Winter Semester 2022
+// Used Technologies: .NET 6.0, JetBrains Rider, Github Copilot
+// Tested on Windows 10
 
 using Chess;
 
@@ -34,7 +38,7 @@ for (int turn = 0; ; turn++)
     if (GameOver.GameIsOver())
         break;
     
-    while(!InputController.ReadInputAndConfirm(Player.CurrentPlayer)) {}
+    while(!InputController.ReadInputAndConfirm()) {}
     
     GameOver.SaveBoardState();
     CommentController.ResetComments();

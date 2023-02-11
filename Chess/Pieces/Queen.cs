@@ -8,6 +8,7 @@ namespace Chess;
 public class Queen : Piece
 {
     protected override string Symbol => "Q";
+    
     protected override Vector2[] ShiftVectors => new[]
     {
         new Vector2(0, 1), new Vector2(0, -1),

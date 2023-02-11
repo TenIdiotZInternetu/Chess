@@ -12,4 +12,7 @@
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <SourceRoot Include="C:\Users\TIZI\.nuget\packages\" />
   </ItemGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgPxtlCa_XmlCommentMarkDownGenerator Condition=" '$(PkgPxtlCa_XmlCommentMarkDownGenerator)' == '' ">C:\Users\TIZI\.nuget\packages\pxtlca.xmlcommentmarkdowngenerator\0.2.6270.2853</PkgPxtlCa_XmlCommentMarkDownGenerator>
+  </PropertyGroup>
 </Project>

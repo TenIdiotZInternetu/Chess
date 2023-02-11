@@ -12,12 +12,9 @@ public class Knight : Piece
     public Knight(Player owner, int xPosition, int yPosition) 
         : base(owner, xPosition, yPosition) {}
     
-    public override void FindLegalMoves()
+    public override void GetVision()
     {
-        LegalMoves = new List<Vector2>();
-        
-        if (Owner.IsDoubleChecked)
-            return;
+        Vision = new List<Vector2>();
         
         Vector2[] shiftVectors = {
             new Vector2(2, 1), new Vector2(-2, -1),
@@ -34,11 +31,10 @@ public class Knight : Piece
             if (Board.IsSquareOutOfBounds(searchedPosition))
                 continue;
             
-            if ((Board.IsPieceOppositeColor(this, searchedPosition) ||
-                Board.IsSquareFree(searchedPosition)) &&
-                KingStaysSafe(searchedPosition))
+            if (Board.IsPieceOppositeColor(this, searchedPosition) ||
+                Board.IsSquareFree(searchedPosition))
             {
-                LegalMoves.Add(searchedPosition);
+                Vision.Add(searchedPosition);
             }
         }
     }

@@ -1,7 +1,3 @@
-// Author Adam Balko
-// Semester project, Programming 1, Winter Semester 2022
-// Used Technologies: .NET 6.0, JetBrains Rider, Github Copilot
-
 using System.Numerics;
 using Microsoft.VisualBasic;
 
@@ -174,7 +170,7 @@ public class King : Piece
                     return false;
             }
             
-            else if (piece.LegalMoves.Contains(position))
+            else if (piece.Vision.Contains(position))
                 return false;
         }
         

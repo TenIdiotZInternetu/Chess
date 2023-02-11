@@ -1,11 +1,84 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "DefaultDocumentation/0.8.3-beta1": {
+        "type": "package",
+        "build": {
+          "build/DefaultDocumentation.targets": {}
+        }
+      },
+      "PxtlCa.XmlCommentMarkDownGenerator/0.2.6270.2853": {
+        "type": "package",
+        "build": {
+          "build/PxtlCa.XmlCommentMarkDownGenerator.targets": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "DefaultDocumentation/0.8.3-beta1": {
+      "sha512": "gUTwuDhfkuqGw5SvpVOH7SsLGRwpzHp5kCmib5pESVw5F7BLWmB4IQWqQzcwRyHGxLPsZvYWLLIGzKaaFvSZ9g==",
+      "type": "package",
+      "path": "defaultdocumentation/0.8.3-beta1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/DefaultDocumentation.Api.dll",
+        "build/DefaultDocumentation.Api.pdb",
+        "build/DefaultDocumentation.Api.xml",
+        "build/DefaultDocumentation.Common.dll",
+        "build/DefaultDocumentation.Common.pdb",
+        "build/DefaultDocumentation.Markdown.dll",
+        "build/DefaultDocumentation.Markdown.pdb",
+        "build/DefaultDocumentation.Markdown.xml",
+        "build/DefaultDocumentation.dll",
+        "build/DefaultDocumentation.pdb",
+        "build/DefaultDocumentation.targets",
+        "build/ICSharpCode.Decompiler.dll",
+        "build/Microsoft.Build.Framework.dll",
+        "build/Microsoft.Build.Utilities.Core.dll",
+        "build/Microsoft.NET.StringTools.dll",
+        "build/NLog.dll",
+        "build/Newtonsoft.Json.dll",
+        "build/System.Buffers.dll",
+        "build/System.Collections.Immutable.dll",
+        "build/System.Configuration.ConfigurationManager.dll",
+        "build/System.Memory.dll",
+        "build/System.Numerics.Vectors.dll",
+        "build/System.Reflection.Metadata.dll",
+        "build/System.Runtime.CompilerServices.Unsafe.dll",
+        "build/System.Security.AccessControl.dll",
+        "build/System.Security.Cryptography.ProtectedData.dll",
+        "build/System.Security.Permissions.dll",
+        "build/System.Security.Principal.Windows.dll",
+        "build/System.Threading.dll",
+        "defaultdocumentation.0.8.3-beta1.nupkg.sha512",
+        "defaultdocumentation.nuspec",
+        "logo.png"
+      ]
+    },
+    "PxtlCa.XmlCommentMarkDownGenerator/0.2.6270.2853": {
+      "sha512": "/73tn4VfQLbE880UMNBIRe7wS7sbEfdoKQE5zmvDFO7otANv4AH4Sjl0wOZXQf0actaWsUmUxbc19cItxkCSWA==",
+      "type": "package",
+      "path": "pxtlca.xmlcommentmarkdowngenerator/0.2.6270.2853",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/PxtlCa.XmlCommentMarkDownGenerator.targets",
+        "pxtlca.xmlcommentmarkdowngenerator.0.2.6270.2853.nupkg.sha512",
+        "pxtlca.xmlcommentmarkdowngenerator.nuspec",
+        "tools/CommandLine.dll",
+        "tools/PxtlCa.XmlCommentMarkDownGenerator.exe"
+      ]
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "DefaultDocumentation >= 0.8.3-beta1",
+      "PxtlCa.XmlCommentMarkDownGenerator >= 0.2.6270.2853"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\TIZI\\.nuget\\packages\\": {}
@@ -43,6 +116,18 @@
     "frameworks": {
       "net6.0": {
         "targetAlias": "net6.0",
+        "dependencies": {
+          "DefaultDocumentation": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[0.8.3-beta1, )"
+          },
+          "PxtlCa.XmlCommentMarkDownGenerator": {
+            "target": "Package",
+            "version": "[0.2.6270.2853, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

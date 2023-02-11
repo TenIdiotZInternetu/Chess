@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "DC4ZBj49+0riAXWiPZ762oW+Dt/dSSJBUo/bsqfwwTu17PKyDYx+JoCReFsaa6A7QlpwamisqnS6M1i/WE+bww==",
+  "dgSpecHash": "uonsn4gXXm4jfwUEXeEevIpYIe0MNIAv/1e7jTMVPIGxLmyS03u8s7k9ZzhdwHBFt4wQQkiz/T83IN9p9DsATQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\TIZI\\Desktop\\Kodiky\\CUNI\\Chess\\Chess\\Chess.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\TIZI\\.nuget\\packages\\defaultdocumentation\\0.8.3-beta1\\defaultdocumentation.0.8.3-beta1.nupkg.sha512",
+    "C:\\Users\\TIZI\\.nuget\\packages\\pxtlca.xmlcommentmarkdowngenerator\\0.2.6270.2853\\pxtlca.xmlcommentmarkdowngenerator.0.2.6270.2853.nupkg.sha512"
+  ],
   "logs": []
 }

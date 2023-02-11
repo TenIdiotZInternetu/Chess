@@ -23,9 +23,14 @@ public abstract class Piece
     protected abstract string Symbol { get; }
     
     /// <summary>
+    /// All squares this piece could move to if it didn't endanger the king
+    /// </summary>
+    public List<Vector2> Vision { get; protected set; } = new();
+
+    /// <summary>
     /// All square this piece is able to move to this turn
     /// </summary>
-    public List<Vector2> LegalMoves = new();
+    public List<Vector2> LegalMoves { get; protected set; } = new();
     
     /// <summary>
     /// Coordinate vector with file and rank of the Piece
@@ -60,14 +65,11 @@ public abstract class Piece
     public override string ToString() => Symbol;
 
     /// <summary>
-    /// Finds all squares this piece is able to move to this turn
+    /// Finds all squares this piece could move to if it didn't endanger the king
     /// </summary>
-    public virtual void FindLegalMoves()
+    public virtual void GetVision()
     {
-        LegalMoves = new List<Vector2>();
-        
-        if (Owner.IsDoubleChecked)
-            return;
+        Vision = new List<Vector2>();
 
         foreach (var vector in ShiftVectors)
         {
@@ -75,17 +77,38 @@ public abstract class Piece
             
             while (Board.IsSquareFree(searchedPosition))
             {
-                if (KingStaysSafe(searchedPosition))
-                    LegalMoves.Add(searchedPosition);
-                
+                Vision.Add(searchedPosition);
                 searchedPosition += vector;
             }
 
-            if (Board.IsPieceOppositeColor(this, searchedPosition) &&
-                KingStaysSafe(searchedPosition))
+            if (Board.IsPieceOppositeColor(this, searchedPosition))
             {
-                LegalMoves.Add(searchedPosition);
+                Vision.Add(searchedPosition);
             }
+        }
+    }
+    
+    /// <summary>
+    /// Finds all squares this piece is able to move to this turn
+    /// </summary>
+    public virtual void FindLegalMoves()
+    {
+        LegalMoves = new List<Vector2>();
+
+        if (Owner.IsDoubleChecked)
+            return;
+
+        if (ExposesKing())
+            return;
+        
+        foreach (var square in Vision)
+        {
+            bool kingStaysSafe = !Owner.IsInCheck ||
+                                 BlocksCheck(square) ||
+                                 CapturesThreat(square);
+            
+            if (kingStaysSafe)
+                LegalMoves.Add(square);
         }
     }
 
@@ -105,7 +128,7 @@ public abstract class Piece
     /// </summary>
     /// <param name="destination">Coordinates of the square the Piece would've blocked</param>
     /// <returns>True if the attack is interfered</returns>
-    protected bool BlocksCheck(Vector2 destination)
+    private bool BlocksCheck(Vector2 destination)
     {
         if (!Owner.IsInCheck)
             return false;
@@ -142,7 +165,7 @@ public abstract class Piece
     /// </summary>
     /// <param name="destination">Coordinates of the captured Piece</param>
     /// <returns>True if the Captured Piece is the threat</returns>
-    protected bool CapturesThreat(Vector2 destination)
+    private bool CapturesThreat(Vector2 destination)
     {
         if (!Owner.IsInCheck)
             return false;
@@ -154,14 +177,35 @@ public abstract class Piece
     }
 
     /// <summary>
-    /// Checks if the King cannot be captured after moving the Piece to the given position
+    /// Checks if moving the Piece would expose the king to Check
     /// </summary>
-    /// <param name="position">Coordinates of the square the Piece is moving to</param>
-    /// <returns>True if the King cannot be captured the next move</returns>
-    protected bool KingStaysSafe(Vector2 position)
+    /// <returns>True if the owner's king would be in Check after the move</returns>
+    private bool ExposesKing()
     {
-        return !Owner.IsInCheck ||
-               BlocksCheck(position) ||
-               CapturesThreat(position);
+        if (Owner.IsInCheck)
+            return false;
+        
+        Piece[] longRangeAttackers = Player.IdlePlayer.ControlledPieces
+            .Where(p => p.IsLongRange && p.Vision.Contains(Position))
+            .ToArray();
+
+        foreach (Piece piece in longRangeAttackers)
+        {
+            foreach (Vector2 vector in piece.ShiftVectors)
+            {
+                Vector2 searchedPosition = piece.Position + vector;
+
+                while (Board.IsSquareFree(searchedPosition) ||
+                       searchedPosition == Position )
+                {
+                    searchedPosition += vector;
+                }
+                
+                if (searchedPosition == Owner.King.Position)
+                    return true;
+            }
+        }
+
+        return false;
     }
 }

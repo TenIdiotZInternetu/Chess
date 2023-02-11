@@ -37,7 +37,7 @@ public static class GameOver
         if (!player.IsInCheck) return false;
         if (player.LegalMoves.Count > 0) return false;
             
-        CommentController.WriteCheckmate(Player.CurrentPlayer);
+        CommentController.WriteCheckmate(Player.IdlePlayer);
         return true;
     }
     

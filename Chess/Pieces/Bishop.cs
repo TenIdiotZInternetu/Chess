@@ -8,6 +8,7 @@ namespace Chess;
 public class Bishop : Piece
 {
     protected override string Symbol => "B";
+    
 
     protected override Vector2[] ShiftVectors => new[]
     {

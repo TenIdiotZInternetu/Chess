@@ -13,3 +13,4 @@ C:\Users\TIZI\Desktop\Kodiky\CUNI\Chess\Chess\obj\Release\net6.0\refint\Chess.dl
 C:\Users\TIZI\Desktop\Kodiky\CUNI\Chess\Chess\obj\Release\net6.0\Chess.pdb
 C:\Users\TIZI\Desktop\Kodiky\CUNI\Chess\Chess\obj\Release\net6.0\Chess.genruntimeconfig.cache
 C:\Users\TIZI\Desktop\Kodiky\CUNI\Chess\Chess\obj\Release\net6.0\ref\Chess.dll
+C:\Users\TIZI\Desktop\Kodiky\CUNI\Chess\Chess\bin\Release\net6.0\Chess.xml

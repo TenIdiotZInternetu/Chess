@@ -111,7 +111,7 @@ public static class Board
     /// </summary>
     /// <param name="x">File (Column) of the Piece</param>
     /// <param name="y">Rank (Row) of the Piece</param>
-    /// <returns></returns>
+    /// <returns>Piece at the given Position</returns>
     public static Piece PickPiece(int x, int y)
     {
         Piece pickedPiece = GetPiece(x, y);
@@ -130,7 +130,7 @@ public static class Board
     /// The Piece is expected to move to one of the drawn squares.
     /// </summary>
     /// <param name="piece">The Piece expected to move</param>
-    /// <returns></returns>
+    /// <returns>Piece at the given position</returns>
     public static Piece PickPiece(Piece piece)
     {
         int x = (int)piece.Position.X;
