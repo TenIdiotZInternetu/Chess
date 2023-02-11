@@ -1,0 +1,634 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Chess</name>
+    </assembly>
+    <members>
+        <member name="T:Chess.Board">
+            <summary>
+            Represents status of each square on the Board. Is Responsible for Piece movement.
+            </summary>
+        </member>
+        <member name="P:Chess.Board.Pieces">
+            <summary>
+            Gets the Board as a 2D array of Pieces
+            </summary>
+        </member>
+        <member name="M:Chess.Board.NormalizeBoard">
+            <summary>
+            Converts board to string representation, where first 8 characters are the eight rank,
+            last 8 characters are the first rank.
+            Each character represents a piece,
+            0 represents empty square
+            </summary>
+            <returns>The string representation of the Board</returns>
+        </member>
+        <member name="M:Chess.Board.GetPiece(System.Int32,System.Int32)">
+            <summary>
+            Returns the piece at the given position on the board
+            </summary>
+            <param name="x">File (Column) of the Piece</param>
+            <param name="y">Rank (Row) of the Piece</param>
+            <returns>The piece at given position</returns>
+        </member>
+        <member name="M:Chess.Board.GetPiece(System.Numerics.Vector2)">
+            <summary>
+            Returns the piece at the given position on the board
+            </summary>
+            <param name="position">Coordinate vector with file and rank of the Piece</param>
+            <returns>The piece at given position</returns>
+        </member>
+        <member name="M:Chess.Board.PutPiece(Chess.Piece)">
+            <summary>
+            Places Piece on the board with position given by the Position property of the Piece.
+            Piece is removed from its previous position.
+            Any Piece previously occupying the square is removed from the game.
+            </summary>
+            <param name="piece">Piece to be put on the board</param>
+        </member>
+        <member name="M:Chess.Board.RemovePiece(System.Int32,System.Int32)">
+            <summary>
+            Removes Piece from the given square.
+            </summary>
+            <param name="x">File (Column) of the Piece</param>
+            <param name="y">Rank (Row) of the Piece</param>
+        </member>
+        <member name="M:Chess.Board.RemovePiece(System.Numerics.Vector2)">
+            <summary>
+            Removes Piece from the given square.
+            </summary>
+            <param name="position">Coordinate vector with file and rank of the Piece</param>
+        </member>
+        <member name="M:Chess.Board.PickPiece(System.Int32,System.Int32)">
+            <summary>
+            Draws all legal moves of the Piece at the given position.
+            The Piece is expected to move to one of the drawn squares.
+            </summary>
+            <param name="x">File (Column) of the Piece</param>
+            <param name="y">Rank (Row) of the Piece</param>
+            <returns>Piece at the given Position</returns>
+        </member>
+        <member name="M:Chess.Board.PickPiece(Chess.Piece)">
+            <summary>
+            Draws all legal moves of the Piece at the given position.
+            The Piece is expected to move to one of the drawn squares.
+            </summary>
+            <param name="piece">The Piece expected to move</param>
+            <returns>Piece at the given position</returns>
+        </member>
+        <member name="M:Chess.Board.SetDefaultPiecePositions">
+            <summary>
+            Initiates all Pieces and puts them on the board in their starting positions.
+            </summary>
+        </member>
+        <member name="M:Chess.Board.IsSquareOutOfBounds(System.Int32,System.Int32)">
+            <summary>
+            Checks if the given coordinates are a valid square within the board.
+            </summary>
+            <param name="x">File (Column) of the square</param>
+            <param name="y">Rank (Row) of the square</param>
+            <returns>True if the square doesn't lie on the Board</returns>
+        </member>
+        <member name="M:Chess.Board.IsSquareOutOfBounds(System.Numerics.Vector2)">
+            <summary>
+            Checks if the given coordinates are a valid square within the board.
+            </summary>
+            <param name="position">Coordinate vector with file and rank of the square</param>
+            <returns>True if the square doesn't lie on the Board</returns>
+        </member>
+        <member name="M:Chess.Board.IsSquareFree(System.Numerics.Vector2)">
+            <summary>
+            Checks if the square on the given position is occupied by any Piece
+            </summary>
+            <param name="position">Coordinate vector with file and rank of the square</param>
+            <returns>True if the square isn't occupied by any Piece</returns>
+        </member>
+        <member name="M:Chess.Board.IsPieceOppositeColor(Chess.Piece,System.Numerics.Vector2)">
+            <summary>
+            Checks if the square on the given position is occupied by a Piece of opposite color.
+            </summary>
+            <param name="attacker">The Piece of which color should be opposite to the given square</param>
+            <param name="position">Coordinate vector with file and rank of the square</param>
+            <returns>True if the Piece at given position is of opposite color to the attacker</returns>
+        </member>
+        <member name="T:Chess.BoardRenderer">
+            <summary>
+            Is Responsible for printing the Board to the Console
+            </summary>
+        </member>
+        <member name="F:Chess.BoardRenderer.BoardXPosition">
+            <summary>
+            X position of the top left corner of the Board
+            </summary>
+        </member>
+        <member name="F:Chess.BoardRenderer.BoardYPosition">
+            <summary>
+            Y position of the top left corner of the Board
+            </summary>
+        </member>
+        <member name="M:Chess.BoardRenderer.RenderCoordinates">
+            <summary>
+            Prints the numbers of the ranks and the letters of the files to the Console
+            </summary>
+        </member>
+        <member name="M:Chess.BoardRenderer.RenderBoard">
+            <summary>
+            Print the whole Board with Pieces to the Console
+            </summary>
+        </member>
+        <member name="M:Chess.BoardRenderer.RenderSquare(System.Int32,System.Int32,System.ConsoleColor)">
+            <summary>
+            Render single Square with Piece occupying it to the Console
+            </summary>
+            <param name="squareX">X coordinate of the square</param>
+            <param name="squareY">Y coordinate of the square</param>
+            <param name="bgColor">Print color of the square</param>
+        </member>
+        <member name="M:Chess.BoardRenderer.RenderSquare(System.Numerics.Vector2,System.ConsoleColor)">
+            <summary>
+            Render single Square with Piece occupying it to the Console
+            </summary>
+            <param name="squarePosition">Coordinate vector with file and rank of the square</param>
+            <param name="bgColor">Print color of the square</param>
+        </member>
+        <member name="T:Chess.Columns">
+            <summary>
+            Letter representation of each file (column) on the board
+            </summary>
+        </member>
+        <member name="T:Chess.CommentController">
+            <summary>
+            Responsible for printing information and warnings during the game
+            </summary>
+        </member>
+        <member name="P:Chess.CommentController.TurnCursor">
+            <summary>
+            Position of cursor for printing turn number
+            </summary>
+        </member>
+        <member name="P:Chess.CommentController.PlayerOnMoveCursor">
+            <summary>
+            Position of cursor for comments requiring action from player
+            </summary>
+        </member>
+        <member name="P:Chess.CommentController.WarningCursor">
+            <summary>
+            Position of cursor for warnings as a reaction to invalid input
+            </summary>
+        </member>
+        <member name="M:Chess.CommentController.WritePlayerOnMove(Chess.Player)">
+            <summary>
+            Prints "[player] to move"
+            </summary>
+        </member>
+        <member name="M:Chess.CommentController.WriteTurnNumber(System.Int32)">
+            <summary>
+            Prints "Move [moveNumber]"
+            </summary>
+        </member>
+        <member name="M:Chess.CommentController.WriteWarning(System.String)">
+            <summary>
+            Prints warning about invalid input
+            </summary>
+            <param name="text">Text to be printed</param>
+        </member>
+        <member name="M:Chess.CommentController.WriteCheck(Chess.Player)">
+            <summary>
+            Prints "[player] is in check!"
+            </summary>
+            <param name="player"></param>
+        </member>
+        <member name="M:Chess.CommentController.WritePromotionComment">
+            <summary>
+            Prints "Choose piece to promote to (K, Q, R, B)"
+            </summary>
+        </member>
+        <member name="M:Chess.CommentController.WriteCheckmate(Chess.Player)">
+            <summary>
+            Prints a the reason for end of game
+            </summary>
+        </member>
+        <member name="M:Chess.CommentController.WriteStalemate">
+            <summary>
+            Prints a the reason for end of game
+            </summary>
+        </member>
+        <member name="M:Chess.CommentController.WriteRepetition">
+            <summary>
+            Prints a the reason for end of game
+            </summary>
+        </member>
+        <member name="M:Chess.CommentController.WriteInsufficientMaterial">
+            <summary>
+            Prints a the reason for end of game
+            </summary>
+        </member>
+        <member name="M:Chess.CommentController.Write50MoveRule">
+            <summary>
+            Prints a the reason for end of game
+            </summary>
+        </member>
+        <member name="M:Chess.CommentController.ResetWarning">
+            <summary>
+            Clears the warning text
+            </summary>
+        </member>
+        <member name="M:Chess.CommentController.ResetComments">
+            <summary>
+            Clears all lines of comments
+            </summary>
+        </member>
+        <member name="M:Chess.CommentController.AddPadding(System.String)">
+            <summary>
+            Adds whitespaces before text to align it to the center of window
+            </summary>
+            <param name="text">Text to be centered</param>
+            <returns>Padded text</returns>
+        </member>
+        <member name="T:Chess.GameOver">
+            <summary>
+            Responsible for checking whether the game should end or not
+            </summary>
+        </member>
+        <member name="F:Chess.GameOver._fiftyMoveCounter">
+            <summary>
+            Counts the number of moves without a capture or pawn move
+            </summary>
+        </member>
+        <member name="F:Chess.GameOver._boardStates">
+            <summary>
+            Stores how many times the current board state has been reached
+            </summary>
+        </member>
+        <member name="M:Chess.GameOver.GameIsOver">
+            <summary>
+            Checks if the players reached either a draw or a win
+            </summary>
+            <returns>True if the players reached draw or win</returns>
+        </member>
+        <member name="M:Chess.GameOver.ResetFiftyMoveCounter">
+            <summary>
+            Resets the counter counting towards 50 move draw.
+            Also resets saved board states, since they cannot be reached again.
+            </summary>
+        </member>
+        <member name="M:Chess.GameOver.IncreaseFiftyMoveCounter">
+            <summary>
+            Increase counter counting towards 50 move draw.
+            </summary>
+        </member>
+        <member name="M:Chess.GameOver.SaveBoardState">
+            <summary>
+            Save current board state. Count how many times the state has been reached.
+            </summary>
+        </member>
+        <member name="T:Chess.InputController">
+            <summary>
+            Responsible for reading input from the console and choosing appropriate response.
+            </summary>
+        </member>
+        <member name="P:Chess.InputController.PrimaryInputCursor">
+            <summary>
+            Position of cursor for primary input
+            </summary>
+        </member>
+        <member name="P:Chess.InputController.SecondaryInputCursor">
+            <summary>
+            Position of cursor for choosing a square to move to
+            </summary>
+        </member>
+        <member name="P:Chess.InputController.ResolveInput">
+            <summary>
+            Method responsible for creating appropriate response to input
+            </summary>
+        </member>
+        <member name="M:Chess.InputController.ReadInputAndConfirm">
+            <summary>
+            Reads input and handles it
+            </summary>
+            <returns>True if the input was valid and no exceptions were raised</returns>
+        </member>
+        <member name="M:Chess.InputController.ReadPrimaryInput">
+            <summary>
+            Awaits player's first input and chooses appropriate response
+            </summary>
+            <returns>Player's input</returns>
+            <exception cref="T:System.ArgumentNullException">Player's input was empty</exception>
+            <exception cref="T:System.ArgumentException">The input was of invalid format</exception>
+        </member>
+        <member name="M:Chess.InputController.PickAndMovePiece(System.String)">
+            <summary>
+            Picks up a Piece and moves it to a square chosen by the player
+            </summary>
+            <param name="input">Player's primary input</param>
+            <exception cref="T:System.UnauthorizedAccessException">Player chose a Piece not of his color</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Player chose a square that is not one of their legal moves</exception>
+        </member>
+        <member name="M:Chess.InputController.AskForLegalMove(Chess.Piece)">
+            <summary>
+            Prints the type of chosen Piece and asks the player to choose a square to move to
+            </summary>
+            <param name="pickedPiece">The piece to be moved</param>
+            <returns>Coordinate vector of the chosen square</returns>
+            <exception cref="T:System.ArgumentNullException">Player's input was empty</exception>
+            <exception cref="T:System.ArgumentException">The input was of invalid format</exception>
+        </member>
+        <member name="M:Chess.InputController.ResetInput">
+            <summary>
+            Clears the input line
+            </summary>
+        </member>
+        <member name="M:Chess.InputController.IsValidSquare(System.String)">
+            <summary>
+            Checks if the input has the format of one of the squares on the board
+            </summary>
+            <param name="input">Player's input</param>
+            <returns>True if the input string has a valid square format</returns>
+        </member>
+        <member name="M:Chess.InputController.AskForPromotion">
+            <summary>
+            Awaits player to choose a piece type to promote to. "Q", "K", "B", "R" are expected inputs.
+            </summary>
+            <returns>Players input ("Q", "K", "B" or "R")</returns>
+        </member>
+        <member name="T:Chess.Piece">
+            <summary>
+            Represents a single Piece on the Board
+            </summary>
+        </member>
+        <member name="F:Chess.Piece.Owner">
+            <summary>
+            Player that controls the Piece
+            </summary>
+        </member>
+        <member name="F:Chess.Piece.Color">
+            <summary>
+            Color to be used when printing the Piece
+            </summary>
+        </member>
+        <member name="P:Chess.Piece.Symbol">
+            <summary>
+            Character to be used when printing the Piece
+            </summary>
+        </member>
+        <member name="F:Chess.Piece.LegalMoves">
+            <summary>
+            All square this piece is able to move to this turn
+            </summary>
+        </member>
+        <member name="F:Chess.Piece.Position">
+            <summary>
+            Coordinate vector with file and rank of the Piece
+            </summary>
+        </member>
+        <member name="P:Chess.Piece.IsLongRange">
+            <summary>
+            True for Queen, Rook and Bishop
+            </summary>
+        </member>
+        <member name="P:Chess.Piece.ShiftVectors">
+            <summary>
+            Assigned to Queen, Rook and Bishop. Contains all possible directions of movement.
+            </summary>
+        </member>
+        <member name="M:Chess.Piece.#ctor(Chess.Player,System.Int32,System.Int32)">
+            <summary>
+            Represents a single Piece on the Board
+            </summary>
+            <param name="owner">Player that controls this Piece</param>
+            <param name="xPosition">File (column) this Piece starts at</param>
+            <param name="yPosition">Rank (row) this Piece starts at</param>
+        </member>
+        <member name="M:Chess.Piece.FindLegalMoves">
+            <summary>
+            Finds all squares this piece is able to move to this turn
+            </summary>
+        </member>
+        <member name="M:Chess.Piece.Move(System.Numerics.Vector2)">
+            <summary>
+            Responsible for all property changes when the Piece is moved
+            </summary>
+            <param name="destination">Coordinates of the square the Piece should be moved to</param>
+        </member>
+        <member name="M:Chess.Piece.BlocksCheck(System.Numerics.Vector2)">
+            <summary>
+            Checks if the Piece interferes opponent's attack
+            </summary>
+            <param name="destination">Coordinates of the square the Piece would've blocked</param>
+            <returns>True if the attack is interfered</returns>
+        </member>
+        <member name="M:Chess.Piece.CapturesThreat(System.Numerics.Vector2)">
+            <summary>
+            Checks if the captured Piece is the one delivering the check
+            </summary>
+            <param name="destination">Coordinates of the captured Piece</param>
+            <returns>True if the Captured Piece is the threat</returns>
+        </member>
+        <member name="M:Chess.Piece.KingStaysSafe(System.Numerics.Vector2)">
+            <summary>
+            Checks if the King cannot be captured after moving the Piece to the given position
+            </summary>
+            <param name="position">Coordinates of the square the Piece is moving to</param>
+            <returns>True if the King cannot be captured the next move</returns>
+        </member>
+        <member name="T:Chess.Bishop">
+            <summary>
+            Represents the Bishop Piece type
+            </summary>
+        </member>
+        <member name="T:Chess.King">
+            <summary>
+            Represents the King piece
+            </summary>
+        </member>
+        <member name="F:Chess.King._moved">
+            <summary>
+            True if the King has moved at least once during the game
+            </summary>
+        </member>
+        <member name="M:Chess.King.GetWalkableSquares">
+            <summary>
+            Yields all the squares with distance 1 from the King
+            </summary>
+            <returns>Coordinates of a square with a distance 1 from the King</returns>
+        </member>
+        <member name="M:Chess.King.CanCastleLeft">
+            <summary>
+            Checks if the King can castle to the C file.
+            Rook must be able to move to the D file.
+            </summary>
+            <returns>True if such maneuver is possible</returns>
+        </member>
+        <member name="M:Chess.King.CanCastleRight">
+            <summary>
+            Checks if the King can castle to the G file.
+            Rook must be able to move to the F file.
+            </summary>
+            <returns>True if such maneuver is possible</returns>
+        </member>
+        <member name="M:Chess.King.RookIsPresent(System.Numerics.Vector2)">
+            <summary>
+            Checks if the Rook stands on the given position
+            </summary>
+            <param name="position">The Coordinates of a square the rook should stand on</param>
+            <returns>True if the Rook stands on the given position</returns>
+        </member>
+        <member name="M:Chess.King.IsSquareSafe(System.Numerics.Vector2)">
+            <summary>
+            Checks if the King cannot be captured on the given position in the next turn
+            </summary>
+            <param name="position">Coordinates of the checked square</param>
+            <returns>True if the King won't get captured</returns>
+        </member>
+        <member name="T:Chess.Knight">
+            <summary>
+            Represents the Knight Piece type
+            </summary>
+        </member>
+        <member name="T:Chess.Pawn">
+            <summary>
+            Represents the Pawn Piece type
+            </summary>
+        </member>
+        <member name="F:Chess.Pawn._moved">
+            <summary>
+            True if the Pawn has moved at least once during the game
+            </summary>
+        </member>
+        <member name="F:Chess.Pawn._yDirection">
+            <summary>
+            Vertical direction in which the Pawn can move
+            </summary>
+        </member>
+        <member name="F:Chess.Pawn._canBeEnPassant">
+            <summary>
+            True if the Pawn can be captured by en passant
+            </summary>
+        </member>
+        <member name="P:Chess.Pawn.AttackedSquares">
+            <summary>
+            Squares on which an opponent's Piece can be captured (once present) by this Pawn
+            </summary>
+        </member>
+        <member name="M:Chess.Pawn.CheckForwardMove">
+            <summary>
+            Checks and adds legal move if the Pawn can move 1 square forward
+            </summary>
+        </member>
+        <member name="M:Chess.Pawn.CheckForwardTwoMove">
+            <summary>
+            Checks and adds legal move if the Pawn can move 2 squares forward
+            </summary>
+        </member>
+        <member name="M:Chess.Pawn.CanCapture(System.Numerics.Vector2)">
+            <summary>
+            Checks if the Pawn can capture a Piece on the given square
+            </summary>
+            <param name="position">Coordinates of a square to be checked</param>
+            <returns>True if the Piece can be captured</returns>
+        </member>
+        <member name="M:Chess.Pawn.CanEnPassant(System.Numerics.Vector2)">
+            <summary>
+            Checks if the Pawn can capture an opponent's Pawn by en passant
+            </summary>
+            <param name="targetPosition">Position of the opponent's Pawn</param>
+            <returns>True if the opponent's Pawn can be captured by en passant</returns>
+        </member>
+        <member name="M:Chess.Pawn.Promote">
+            <summary>
+            Asks the Player for a Piece to promote the Pawn to and replaces the Pawn with the new Piece
+            </summary>
+        </member>
+        <member name="T:Chess.Queen">
+            <summary>
+            Represents the Queen Piece type
+            </summary>
+        </member>
+        <member name="T:Chess.Rook">
+            <summary>
+            Represents the Queen Piece type
+            </summary>
+        </member>
+        <member name="F:Chess.Rook.Moved">
+            <summary>
+            True if the Rook has moved at least once during the game
+            </summary>
+        </member>
+        <member name="T:Chess.Player">
+            <summary>
+            Represents one of the users playing the game
+            </summary>
+        </member>
+        <member name="P:Chess.Player.CurrentPlayer">
+            <summary>
+            Player that is currently making a move
+            </summary>
+        </member>
+        <member name="P:Chess.Player.IdlePlayer">
+            <summary>
+            Player waiting for the opponent to make a move
+            </summary>
+        </member>
+        <member name="P:Chess.Player.Opponent">
+            <summary>
+            Player who is playing against this player
+            </summary>
+        </member>
+        <member name="F:Chess.Player.Color">
+            <summary>
+            Symbolic color of the player
+            </summary>
+        </member>
+        <member name="F:Chess.Player._printColor">
+            <summary>
+            Color of to be printed in the console
+            </summary>
+        </member>
+        <member name="F:Chess.Player.ControlledPieces">
+            <summary>
+            All pieces on the board this player can move with
+            </summary>
+        </member>
+        <member name="F:Chess.Player.King">
+            <summary>
+            King piece controlled by this player
+            </summary>
+        </member>
+        <member name="F:Chess.Player.Threats">
+            <summary>
+            All opponent's pieces giving a check to this player's king
+            </summary>
+        </member>
+        <member name="F:Chess.Player.LegalMoves">
+            <summary>
+            All squares pieces of this player can move to this turn
+            </summary>
+        </member>
+        <member name="P:Chess.Player.IsInCheck">
+            <summary>
+            True if the player's king is in check
+            </summary>
+        </member>
+        <member name="P:Chess.Player.IsDoubleChecked">
+            <summary>
+            True if the player's king is checked by two pieces at once
+            </summary>
+        </member>
+        <member name="M:Chess.Player.#ctor(System.ConsoleColor)">
+            <summary>
+            Represents one of the users playing the game
+            </summary>
+            <param name="color">Symbolic color of the player</param>
+        </member>
+        <member name="M:Chess.Player.PrintName">
+            <summary>
+            Prints the player's color in the console. Color of the text is player's _printColor
+            </summary>
+        </member>
+        <member name="M:Chess.Player.FindLegalMoves">
+            <summary>
+            Finds all squares pieces of this player can move to this turn
+            </summary>
+        </member>
+    </members>
+</doc>

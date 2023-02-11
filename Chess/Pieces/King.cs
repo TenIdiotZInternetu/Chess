@@ -8,6 +8,7 @@ namespace Chess;
 /// </summary>
 public class King : Piece
 {
+    /// <inheritdoc/>
     protected override string Symbol => Strings.ChrW(177).ToString();
     
     /// <summary>
@@ -15,12 +16,14 @@ public class King : Piece
     /// </summary>
     private bool _moved = false;
 
+    /// <inheritdoc/>
     public King(Player owner, int xPosition, int yPosition)
         : base(owner, xPosition, yPosition)
     {
         owner.King = this;
     }
 
+    /// <inheritdoc/>
     public override void FindLegalMoves()
     {
         LegalMoves = new List<Vector2>();
@@ -48,6 +51,7 @@ public class King : Piece
         
     }
 
+    /// <inheritdoc/>
     public override void Move(Vector2 position)
     {
         _moved = true;

@@ -7,12 +7,6 @@
         "build": {
           "build/DefaultDocumentation.targets": {}
         }
-      },
-      "PxtlCa.XmlCommentMarkDownGenerator/0.2.6270.2853": {
-        "type": "package",
-        "build": {
-          "build/PxtlCa.XmlCommentMarkDownGenerator.targets": {}
-        }
       }
     }
   },
@@ -57,27 +51,11 @@
         "defaultdocumentation.nuspec",
         "logo.png"
       ]
-    },
-    "PxtlCa.XmlCommentMarkDownGenerator/0.2.6270.2853": {
-      "sha512": "/73tn4VfQLbE880UMNBIRe7wS7sbEfdoKQE5zmvDFO7otANv4AH4Sjl0wOZXQf0actaWsUmUxbc19cItxkCSWA==",
-      "type": "package",
-      "path": "pxtlca.xmlcommentmarkdowngenerator/0.2.6270.2853",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "build/PxtlCa.XmlCommentMarkDownGenerator.targets",
-        "pxtlca.xmlcommentmarkdowngenerator.0.2.6270.2853.nupkg.sha512",
-        "pxtlca.xmlcommentmarkdowngenerator.nuspec",
-        "tools/CommandLine.dll",
-        "tools/PxtlCa.XmlCommentMarkDownGenerator.exe"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "DefaultDocumentation >= 0.8.3-beta1",
-      "PxtlCa.XmlCommentMarkDownGenerator >= 0.2.6270.2853"
+      "DefaultDocumentation >= 0.8.3-beta1"
     ]
   },
   "packageFolders": {
@@ -122,10 +100,6 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[0.8.3-beta1, )"
-          },
-          "PxtlCa.XmlCommentMarkDownGenerator": {
-            "target": "Package",
-            "version": "[0.2.6270.2853, )"
           }
         },
         "imports": [

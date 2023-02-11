@@ -7,6 +7,7 @@ namespace Chess;
 /// </summary>
 public class Rook : Piece
 {
+    /// <inheritdoc/>
     protected override string Symbol => "R";
     
     /// <summary>
@@ -14,15 +15,18 @@ public class Rook : Piece
     /// </summary>
     public bool Moved = false;
     
+    /// <inheritdoc/>
     protected override Vector2[] ShiftVectors => new[] 
     {
         new Vector2(0, 1), new Vector2(0, -1),
         new Vector2(1, 0), new Vector2(-1, 0),
     };
     
+    /// <inheritdoc/>
     public Rook(Player owner, int xPosition, int yPosition) 
         : base(owner, xPosition, yPosition) {}
 
+    /// <inheritdoc/>
     public override void Move(Vector2 position)
     {
         Moved = true;

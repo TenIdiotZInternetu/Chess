@@ -8,6 +8,7 @@ namespace Chess;
 /// </summary>
 public class Pawn : Piece
 {
+    /// <inheritdoc/>
     protected override string Symbol => "P";
     
     /// <summary>
@@ -33,6 +34,7 @@ public class Pawn : Piece
         Position + _yDirection + Vector2.UnitX
     );
 
+    /// <inheritdoc/>
     public Pawn(Player owner, int xPosition, int yPosition)
         : base(owner, xPosition, yPosition)
     {
@@ -41,6 +43,7 @@ public class Pawn : Piece
             new Vector2(0, 1);
     }
     
+    /// <inheritdoc/>
     public override void GetVision()
     {
         Vision = new List<Vector2>();
@@ -117,6 +120,7 @@ public class Pawn : Piece
                target is Pawn { _canBeEnPassant: true };
     }
     
+    /// <inheritdoc/>
     public override void Move(Vector2 destination)
     {
         _moved = true;

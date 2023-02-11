@@ -90,7 +90,7 @@ public static class CommentController
     }
     
     /// <summary>
-    /// Prints a the reason for end of game
+    /// Prints "Checkmate! [player] wins!"
     /// </summary>
     public static void WriteCheckmate(Player player)
     {
@@ -107,7 +107,7 @@ public static class CommentController
     }
     
     /// <summary>
-    /// Prints a the reason for end of game
+    /// Prints "Stalemate! No One Wins!"
     /// </summary>
     public static void WriteStalemate()
     {
@@ -122,7 +122,7 @@ public static class CommentController
     }
     
     /// <summary>
-    /// Prints a the reason for end of game
+    /// Prints "Draw by Repetition"
     /// </summary>
     public static void WriteRepetition()
     {
@@ -137,7 +137,7 @@ public static class CommentController
     }
     
     /// <summary>
-    /// Prints a the reason for end of game
+    /// Prints "Draw by Insufficient Material"
     /// </summary>
     public static void WriteInsufficientMaterial()
     {
@@ -152,7 +152,7 @@ public static class CommentController
     }
     
     /// <summary>
-    /// Prints a the reason for end of game
+    /// Prints "Draw by 50 Move Rule!"
     /// </summary>
     public static void Write50MoveRule()
     {

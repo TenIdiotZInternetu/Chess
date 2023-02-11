@@ -7,11 +7,15 @@ namespace Chess;
 /// </summary>
 public class Knight : Piece
 {
+    /// <inheritdoc/>
     protected override string Symbol => "K";
     //cringe one
+    
+    /// <inheritdoc/>
     public Knight(Player owner, int xPosition, int yPosition) 
         : base(owner, xPosition, yPosition) {}
     
+    /// <inheritdoc/>
     public override void GetVision()
     {
         Vision = new List<Vector2>();

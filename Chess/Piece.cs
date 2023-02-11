@@ -62,6 +62,7 @@ public abstract class Piece
         Owner.ControlledPieces.Add(this);
     }
     
+    /// <inheritdoc/>
     public override string ToString() => Symbol;
 
     /// <summary>

@@ -43,10 +43,6 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[0.8.3-beta1, )"
-            },
-            "PxtlCa.XmlCommentMarkDownGenerator": {
-              "target": "Package",
-              "version": "[0.2.6270.2853, )"
             }
           },
           "imports": [
