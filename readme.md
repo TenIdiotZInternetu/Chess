@@ -44,6 +44,17 @@ To unpick the chosen piece, simply left the input field blank and hit enter. Thi
 To castle, pick your king.  
 Then move to the G file to castle short or move to the C file to castle long.  
   
-  For example: White will castle long by moving to C1
+  For example: White wants to castle long by moving to C1
   
   ![Castling long](https://cdn.discordapp.com/attachments/481431046089605120/1074042312595869696/image.png)
+  
+### Promotion
+
+When you escort your pawn to the other side of the board, you can promote it to another piece.  
+Simply fill in one of the provided options.  
+
+  For example: White wants to promote its G pawn to become a queen
+  
+  ![Promoting to queen](https://cdn.discordapp.com/attachments/481431046089605120/1074044747884273794/image.png)
+
+
