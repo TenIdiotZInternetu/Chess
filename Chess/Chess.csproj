@@ -11,11 +11,4 @@
       <DocumentationFile>bin\Release\Chess.xml</DocumentationFile>
     </PropertyGroup>
 
-    <ItemGroup>
-      <PackageReference Include="DefaultDocumentation" Version="0.8.3-beta1">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-    </ItemGroup>
-
 </Project>

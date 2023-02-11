@@ -37,14 +37,6 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "DefaultDocumentation": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[0.8.3-beta1, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
